@@ -11,16 +11,16 @@ public struct RTPVersion: RawRepresentable, Hashable {
     
     public var rawValue: UInt8
     public init(rawValue: UInt8) {
-        precondition(rawValue & 0b0000_0011 == rawValue, "\(RTPPayloadType.self) is only allowed to use the 2bit's of the rawValue.")
-        self.rawValue = rawValue
+        assert(rawValue & 0b0000_0011 == rawValue, "\(Self.self) is only allowed to use the first 2 bit's of rawValue.")
+        self.rawValue = rawValue & 0b0000_0011
     }
 }
 
 public struct RTPPayloadType: RawRepresentable, Hashable {
     public var rawValue: UInt8
     public init(rawValue: UInt8) {
-        precondition(rawValue & 0b0111_1111 == rawValue, "\(RTPPayloadType.self) is only allowed to use the 7bit's of the rawValue.")
-        self.rawValue = rawValue
+        assert(rawValue & 0b0111_1111 == rawValue, "\(Self.self) is only allowed to use the first 7 bit's of the rawValue.")
+        self.rawValue = rawValue & 0b0111_1111
     }
 }
 
@@ -94,13 +94,13 @@ public struct RTPHeader: Equatable {
 }
 
 extension RTPHeader {
-    init<D>(reader: inout BinaryReader<D>) throws where D: DataProtocol {
-        self.version = RTPVersion(rawValue: UInt8(try reader.readBits(2)))
+    public init<D>(reader: inout BinaryReader<D>) throws where D: DataProtocol {
+        self.version = RTPVersion(rawValue: try reader.readBits(2))
         self.padding = try reader.readBool()
         self.extension = try reader.readBool()
-        let contributingSourceCount = try reader.readBits(4)
+        let contributingSourceCount = try reader.readBits(4, type: Int.self)
         self.marker = try reader.readBool()
-        self.payloadType = RTPPayloadType(rawValue: UInt8(try reader.readBits(7)))
+        self.payloadType = RTPPayloadType(rawValue: try reader.readBits(7))
         self.sequenceNumber = try reader.readInteger()
         self.timestamp = try reader.readInteger()
         self.synchronisationSource = RTPSynchronizationSource(rawValue: try reader.readInteger())
@@ -115,7 +115,7 @@ extension RTPHeader {
 }
 
 extension RTPHeader {
-    func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol {
+    public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol {
         writer.writeBits(from: version.rawValue, count: 2)
         writer.writeBool(padding)
         writer.writeBool(`extension`)
