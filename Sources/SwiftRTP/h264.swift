@@ -147,15 +147,14 @@ public struct NALPackageParser<D: MutableDataProtocol> where D.Index == Int {
                 fragmentHeader = naluHeader
                 fragmentPayload = payload
             } else {
+                guard fragmentPayload != nil else {
+                    throw Error.fragmentationUnitA_recivedFragmentBeforeStartFragment
+                }
                 fragmentPayload?.append(contentsOf: payload)
             }
             guard fragmentHeader == naluHeader else {
                 throw Error.fragmentationUnitA_recivedFragmentWithDifferentHeader
             }
-            guard fragmentPayload != nil else {
-                throw Error.fragmentationUnitA_recivedFragmentBeforeStartFragment
-            }
-            fragmentPayload!.append(contentsOf: payload)
             if unitHeader.isEnd {
                 defer {
                     fragmentHeader = nil
