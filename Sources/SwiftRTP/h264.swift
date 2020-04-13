@@ -40,6 +40,10 @@ public struct NALUnitType: Hashable {
     }
 }
 
+public extension NALUnitType {
+    var isSinglePacket: Bool { (1...23).contains(rawValue) }
+}
+
 public struct NALUnitHeader: Hashable {
     public var forbiddenZeroBit: Bool
     public var referenceIndex: UInt8
@@ -114,6 +118,9 @@ public struct NALPackageParser<D: MutableDataProtocol> where D.Index == Int {
     public init() {}
     public mutating func readPackage(from reader: inout BinaryReader<D>) throws -> [NALUnit<D.SubSequence>] {
         let header = try NALUnitHeader(reader: &reader)
+        if header.type.isSinglePacket {
+            return [NALUnit(header: header, payload: try reader.readRemainingBytes())]
+        }
         switch header.type {
         case .singleTimeAggregationPacketA:
             var isEmpty = reader.isEmpty
@@ -161,7 +168,9 @@ public struct NALPackageParser<D: MutableDataProtocol> where D.Index == Int {
             } else {
                 return []
             }
-        default: return []
+        default:
+            print("did recieve unssported packet of type \(header.type)")
+            return []
         }
     }
 }
