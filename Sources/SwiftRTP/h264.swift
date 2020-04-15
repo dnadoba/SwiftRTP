@@ -9,13 +9,54 @@ import Foundation
 import BinaryKit
 
 public struct NALUnitType: Hashable {
+    /// Resverd 0
     public static let reserved0 = Self(rawValue: 0)
-    
-    /// sequence parameter set (SPS)
+    /// Coded slice of a non-IDR (instantaneous decoding refresh) picture
+    public static let nonInstantaneousDecodingRefreshCodedSlice = Self(rawValue: 1)
+    /// Coded slice data partition A
+    public static let codedSliceDataPartitionA = Self(rawValue: 2)
+    /// Coded slice data partition B
+    public static let codedSliceDataPartitionB = Self(rawValue: 3)
+    /// Coded slice data partition C
+    public static let codedSliceDataPartitionC = Self(rawValue: 4)
+    /// Instantaneous Decoding Refresh (IDR) Coded Slice
+    public static let instantaneousDecodingRefreshCodedSlice = Self(rawValue: 5)
+    /// Supplemental enhancement information (SEI)
+    public static let supplementalEnhancementInformation  = Self(rawValue: 6)
+    /// Sequence parameter set (SPS)
     public static let sequenceParameterSet = Self(rawValue: 7)
-    /// picture parameter set (PPS)
+    /// Picture parameter set (PPS)
     public static let pictureParameterSet = Self(rawValue: 8)
-    
+    /// Access Unit Delmiter
+    public static let accessUnitDelmiter = Self(rawValue: 9)
+    /// End of sequence
+    public static let endOfSequence = Self(rawValue: 10)
+    /// End of stream
+    public static let endOfStream = Self(rawValue: 11)
+    /// Filler data
+    public static let fillerData = Self(rawValue: 12)
+    /// Sequence parameter set extension
+    public static let sequenceParameterSetExtension = Self(rawValue: 13)
+    /// Prefix Network Abstraction Layer (NAL) Unit
+    public static let prefixNetworkAbstractionLayerUnit = Self(rawValue: 14)
+    /// Subset sequence parameter set
+    public static let subsetSequenceParameterSet = Self(rawValue: 15)
+    /// Reserved 16
+    public static let reserved16 = Self(rawValue: 16)
+    /// Reserved 17
+    public static let reserved17 = Self(rawValue: 17)
+    /// Reserved 18
+    public static let reserved18 = Self(rawValue: 18)
+    /// Coded slice of an auxiliary coded picture without partitioning
+    public static let codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioning = Self(rawValue: 19)
+    /// Coded slice extension
+    public static let codedSliceExtension = Self(rawValue: 20)
+    /// Coded slice extension for depth view components
+    public static let codedSliceExtensionForDepthViewComponents = Self(rawValue: 21)
+    /// Reserved 22
+    public static let reserved22 = Self(rawValue: 22)
+    /// Reserved 23
+    public static let reserved23 = Self(rawValue: 23)
     /// Single-Time Aggregation Packet type A (STAP-A)
     public static let singleTimeAggregationPacketA = Self(rawValue: 24)
     /// Single-Time Aggregation Packet type B (STAP-B)
@@ -24,13 +65,13 @@ public struct NALUnitType: Hashable {
     public static let multiTimeAggregationPacket16 = Self(rawValue: 26)
     /// Multi-Time Aggregation Packet with 24-bit timestamp offset (MTAP24)
     public static let multiTimeAggregationPacket24 = Self(rawValue: 27)
-    
     /// Fragmentation Unit type A (FU-A)
     public static let fragmentationUnitA = Self(rawValue: 28)
     /// Fragmentation Unit type B (FU-B)
     public static let fragmentationUnitB = Self(rawValue: 29)
-    
+    /// Reserved 30
     public static let reserved30 = Self(rawValue: 30)
+    /// Reserved 31
     public static let reserved31 = Self(rawValue: 31)
     
     public var rawValue: UInt8
@@ -40,8 +81,60 @@ public struct NALUnitType: Hashable {
     }
 }
 
+extension NALUnitType: CustomStringConvertible {
+    public var description: String {
+        return "\(rawValue) - \(name)"
+    }
+    public var name: String {
+        switch self {
+        case .reserved0: return "Reserved 0"
+        case .nonInstantaneousDecodingRefreshCodedSlice: "Coded slice of a non-IDR (instantaneous decoding refresh) picture"
+        case .codedSliceDataPartitionA: "Coded slice data partition A"
+        case .codedSliceDataPartitionB: "Coded slice data partition B"
+        case .codedSliceDataPartitionC: "Coded slice data partition C"
+        case .instantaneousDecodingRefreshCodedSlice: "Instantaneous Decoding Refresh (IDR) Coded Slice"
+        case .supplementalEnhancementInformation : "Supplemental enhancement information (SEI)"
+        case .sequenceParameterSet: "Sequence parameter set (SPS)"
+        case .pictureParameterSet: "Picture parameter set (PPS)"
+        case .accessUnitDelmiter: "Access Unit Delmiter"
+        case .endOfSequence: "End of sequence"
+        case .endOfStream: "End of stream"
+        case .fillerData: "Filler data"
+        case .sequenceParameterSetExtension: "Sequence parameter set extension"
+        case .prefixNetworkAbstractionLayerUnit: "Prefix Network Abstraction Layer (NAL) Unit"
+        case .subsetSequenceParameterSet: "Subset sequence parameter set"
+        case .reserved16: "Reserved 16"
+        case .reserved17: "Reserved 17"
+        case .reserved18: "Reserved 18"
+        case .codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioning: "Coded slice of an auxiliary coded picture without partitioning"
+        case .codedSliceExtension: "Coded slice extension"
+        case .codedSliceExtensionForDepthViewComponents: "Coded slice extension for depth view components"
+        case .reserved22: "Reserved 22"
+        case .reserved23: "Reserved 23"
+        case .singleTimeAggregationPacketA: return "Single-Time Aggregation Packet type A (STAP-A)"
+        case .singleTimeAggregationPacketB: return "Single-Time Aggregation Packet type B (STAP-B)"
+        case .multiTimeAggregationPacket16: return "Multi-Time Aggregation Packet with 16-bit timestamp offset (MTAP16)"
+        case .multiTimeAggregationPacket24: return "Multi-Time Aggregation Packet with 24-bit timestamp offset (MTAP24)"
+        case .fragmentationUnitA: return "Fragmentation Unit type A (FU-A)"
+        case .fragmentationUnitB: return "Fragmentation Unit type B (FU-B)"
+        case .reserved30: return "Reserved 30"
+        case .reserved31: return "Reserved 31"
+        default: return "Unknow"
+        }
+    }
+}
+
 public extension NALUnitType {
+    var isVideoCodingLayer: Bool { (1...5).contains(rawValue) }
+    var isNonVideoCodingLayer: Bool { !isVideoCodingLayer }
     var isSinglePacket: Bool { (1...23).contains(rawValue) }
+    var isReserved: Bool {
+        [.reserved0,
+         .reserved16, .reserved17, .reserved18,
+         .reserved22, .reserved23,
+         .reserved30, .reserved31,
+        ].contains(self)
+    }
 }
 
 public struct NALUnitHeader: Hashable {
@@ -93,6 +186,7 @@ public enum NALPackageParserError: Error {
     case fragmentationUnitA_recivedFragmentBeforeStartFragment
     case fragmentationUnitA_recivedFragmentWithDifferentHeader
     case fragmentationUnitA_recivedFragmentEndBeforeStartFragment
+    case didRecieveUnsuportedPackageType(NALUnitType)
 }
 
 struct WhileSequence: Sequence {
@@ -111,7 +205,7 @@ struct WhileSequence: Sequence {
     }
 }
 
-public struct NALPackageParser<D: MutableDataProtocol> where D.Index == Int {
+public struct NALNonInterleavedPackageParser<D: MutableDataProtocol> where D.Index == Int {
     private typealias Error = NALPackageParserError
     private var fragmentHeader: NALUnitHeader?
     private var fragmentPayload: D.SubSequence?
@@ -168,8 +262,7 @@ public struct NALPackageParser<D: MutableDataProtocol> where D.Index == Int {
                 return []
             }
         default:
-            print("did recieve unssported packet of type \(header.type)")
-            return []
+            throw Error.didRecieveUnsuportedPackageType(header.type)
         }
     }
 }
