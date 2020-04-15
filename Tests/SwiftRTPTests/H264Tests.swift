@@ -112,21 +112,21 @@ final class H264Tests: XCTestCase {
         
         let expectedNaluPayload = [
             // Packet 1 -- start
-            Array(p1.bytesStore.dropFirst(2)),
+            p1.bytesStore.dropFirst(2),
             // Packet 2
-            Array(p2.bytesStore.dropFirst(2)),
+            p2.bytesStore.dropFirst(2),
             // Packet 3
-            Array(p3.bytesStore.dropFirst(2)),
+            p3.bytesStore.dropFirst(2),
             // Packet 4
-            Array(p4.bytesStore.dropFirst(2)),
+            p4.bytesStore.dropFirst(2),
             // Packet 5
-            Array(p5.bytesStore.dropFirst(2)),
+            p5.bytesStore.dropFirst(2),
             // Packet 6
-            Array(p6.bytesStore.dropFirst(2)),
+            p6.bytesStore.dropFirst(2),
             // Packet 7
-            Array(p7.bytesStore.dropFirst(2)),
+            p7.bytesStore.dropFirst(2),
             // Packet 8 -- end
-            Array(p8.bytesStore.dropFirst(2)),
+            p8.bytesStore.dropFirst(2),
         ].flatMap({ $0 })
         
         XCTAssertEqual(Array(nalu.payload), expectedNaluPayload)
