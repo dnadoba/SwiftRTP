@@ -89,6 +89,10 @@ extension H264 {
     }
 }
 
+extension H264.NALUnitType: CaseIterable {
+    public static var allCases: [Self] { (0...31).map(H264.NALUnitType.init(rawValue:)) }
+}
+
 /// Network Abstraction Layer (NAL) unit payload type
 extension H264.NALUnitType: CustomStringConvertible {
     public var description: String {

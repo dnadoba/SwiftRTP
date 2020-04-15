@@ -3,6 +3,11 @@ import XCTest
 @testable import SwiftRTP
 
 final class NALUnitHeaderTests: XCTestCase {
+    func testNALUnitTypeName() {
+        for type in H264.NALUnitType.allCases {
+            XCTAssertFalse(type.description.contains("Unkown"))
+        }
+    }
     func testReadAndWriteFromStruct() throws {
         let headers = [
             H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 0, type: .fragmentationUnitA),
