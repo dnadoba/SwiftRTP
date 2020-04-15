@@ -5,17 +5,17 @@ import XCTest
 final class NALUnitHeaderTests: XCTestCase {
     func testReadAndWriteFromStruct() throws {
         let headers = [
-            NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 0, type: .fragmentationUnitA),
-            NALUnitHeader(forbiddenZeroBit: true, referenceIndex: 0, type: .fragmentationUnitB),
-            NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 1, type: .reserved31),
-            NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .multiTimeAggregationPacket16),
-            NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .singleTimeAggregationPacketA),
+            H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 0, type: .fragmentationUnitA),
+            H264.NALUnitHeader(forbiddenZeroBit: true, referenceIndex: 0, type: .fragmentationUnitB),
+            H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 1, type: .reserved31),
+            H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .multiTimeAggregationPacket16),
+            H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .singleTimeAggregationPacketA),
         ]
         for header in headers {
             var writer = BinaryWriter()
             try header.write(to: &writer)
             var reader = BinaryReader(bytes: writer.bytesStore)
-            XCTAssertEqual(header, try NALUnitHeader(reader: &reader))
+            XCTAssertEqual(header, try H264.NALUnitHeader(reader: &reader))
         }
     }
     
@@ -26,8 +26,8 @@ final class NALUnitHeaderTests: XCTestCase {
         //                                  | reference index
         //                                  forbidden zero bit
         XCTAssertEqual(
-            try NALUnitHeader(reader: &header),
-            NALUnitHeader(
+            try H264.NALUnitHeader(reader: &header),
+            H264.NALUnitHeader(
                 forbiddenZeroBit: true,
                 referenceIndex: 1,
                 type: .init(rawValue: 16)
@@ -35,7 +35,7 @@ final class NALUnitHeaderTests: XCTestCase {
     }
     func testWriteHeaderToBinary() throws {
         var writer = BinaryWriter(bytes: [])
-        try NALUnitHeader(
+        try H264.NALUnitHeader(
             forbiddenZeroBit: false,
             referenceIndex: 2,
             type: .init(rawValue: 16)
@@ -51,13 +51,13 @@ final class NALUnitHeaderTests: XCTestCase {
     func testSingleTimeAggregationPacket() throws {
         let singleTimeAggregationPacketAWithSPSAndPPS = "1800176742c028da01e0089f97011000003e90000bb800f1832a000468ce3c80"
         var reader = try XCTUnwrap(BinaryReader(hexString: singleTimeAggregationPacketAWithSPSAndPPS))
-        var a = NALPackageParser<[UInt8]>()
+        var a = H264.NALNonInterleavedPacketParser<[UInt8]>()
         let nalus = try a.readPackage(from: &reader)
         let sps = try XCTUnwrap(nalus.first)
         let pps = try XCTUnwrap(nalus.last)
-        XCTAssertEqual(sps.header, NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .sequenceParameterSet))
+        XCTAssertEqual(sps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .sequenceParameterSet))
         XCTAssertEqual(sps.payload.count, 22)
-        XCTAssertEqual(pps.header, NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .pictureParameterSet))
+        XCTAssertEqual(pps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .pictureParameterSet))
         XCTAssertEqual(pps.payload.count, 3)
     }
     
@@ -67,17 +67,17 @@ final class NALUnitHeaderTests: XCTestCase {
         var endPacket = try XCTUnwrap(BinaryReader(hexString:  "5c41ae5fc278004606f8c88e322ff007f7c68871583c80231573f0309fcff04210084070473de99838214d2533070429a4a66009d8dd6abbaad0e6fbc1e5b9607af9684f0004934c118f9798e6157ff870700d2c0b9608c3ce6ff09e0082640cca7320eaf80238fb114b9f4800421b73e300118dd6403c712b16317301a010086a18ea9d5d6b807ff57cf40395b96c1cadcb18bc0214fffc69e9a711e23e0e40202260e004394f4cc061111f53179f78399e4022e576fe7bc03114c70f03cc33d01e2004404200ac82d1c54498810debc25d98108b4382d7db80ada1a299d97fbde0d19948d8eaadf18ed28697f6eeb00aab9dcebb594c9cd6b534137ec0b2024021001a52248a57f7ffff1593c6b183de49fd1aaf042b4ebbcf81c4044847cbfc51a025039c56627fc80010d6c6224550e45f8175307fd01902ef9d9342bd6a52bb00a00164760218248e2bf9fc0006d8534b5402c050b3c757c4ac433db95442a9a7283e97ff93eb72a1f5277f340c41cf7d030f3fcfe13c001064214a521084395c826fe6b9ebae7ebae6bae071400052e14c0ecdafc76e56dce34eb6e271e0a00c23ee26d998d63dff0065443e594fa9e033a490255fc712cdebfd4f5f7a1fef17f725ec11c5f2045be407b343cfdec06b10c30205fe5e2c41ebe5b07adcb103f3ca14ffff79a39ace68e6a2378535f99f1db9f5b73c2780087d77ddffff003f094a48c5cff00080dc"))
         
         
-        var parser = NALPackageParser<[UInt8]>()
+        var parser = H264.NALNonInterleavedPacketParser<[UInt8]>()
         XCTAssertEqual(try parser.readPackage(from: &startPacket), [])
         XCTAssertEqual(try parser.readPackage(from: &middlePacket), [])
         let nalu = try XCTUnwrap(try parser.readPackage(from: &endPacket).first)
-        XCTAssertEqual(nalu.header, NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .init(rawValue: 1)))
+        XCTAssertEqual(nalu.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .init(rawValue: 1)))
         XCTAssertEqual(nalu.payload.count, 3437)
     }
     
     func testNALUnitToBytes() {
-        let nalu = NALUnit(header: .init(forbiddenZeroBit: false, referenceIndex: 0, type: .pictureParameterSet), payload: Data([1,2,3,4,5,6,7,8]))
-        XCTAssertEqual(nalu.bytes, Data([NALUnitType.pictureParameterSet.rawValue, 1,2,3,4,5,6,7,8]))
+        let nalu = H264.NALUnit(header: .init(forbiddenZeroBit: false, referenceIndex: 0, type: .pictureParameterSet), payload: Data([1,2,3,4,5,6,7,8]))
+        XCTAssertEqual(nalu.bytes, Data([H264.NALUnitType.pictureParameterSet.rawValue, 1,2,3,4,5,6,7,8]))
     }
     
     func test_b() throws {
@@ -90,7 +90,7 @@ final class NALUnitHeaderTests: XCTestCase {
         var p7 = try XCTUnwrap(BinaryReader(hexString: "7c0575d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d"))
         var p8 = try XCTUnwrap(BinaryReader(hexString: "7c4575d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d75d78"))
         
-        var parser = NALPackageParser<[UInt8]>()
+        var parser = H264.NALNonInterleavedPacketParser<[UInt8]>()
         XCTAssertEqual(try parser.readPackage(from: &p1), [])
         XCTAssertEqual(try parser.readPackage(from: &p2), [])
         XCTAssertEqual(try parser.readPackage(from: &p3), [])
