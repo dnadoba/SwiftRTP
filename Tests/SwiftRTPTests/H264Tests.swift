@@ -132,7 +132,18 @@ final class H264Tests: XCTestCase {
         XCTAssertEqual(Array(nalu.payload), expectedNaluPayload)
     }
     
-    func testFragmentationUnitHeaderReadAndWrite() {
+    func testFragmentationUnitHeaderReadAndWrite() throws {
+        let header = FragmentationUnitHeader(
+            isStart: false,
+            isEnd: true,
+            reservedBit: false,
+            type: .fragmentationUnitA)
+        var writer = BinaryWriter()
+        try header.write(to: &writer)
+        var reader = BinaryReader(bytes: writer.bytesStore)
         
+        let parsedHeader = try FragmentationUnitHeader(from: &reader)
+        XCTAssertEqual(header, parsedHeader)
+        XCTAssertTrue(reader.isEmpty)
     }
 }
