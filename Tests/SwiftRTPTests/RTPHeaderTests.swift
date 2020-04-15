@@ -18,7 +18,7 @@ final class RTPHeaderTests: XCTestCase {
         // Synchronization Source identifier: 0x991f69ce (2568972750)
         var reader = try XCTUnwrap(BinaryReader(hexString: "8060de3099c107c0991f69ce"))
         
-        let header = try XCTUnwrap(try RTPHeader(reader: &reader))
+        let header = try XCTUnwrap(try RTPHeader(from: &reader))
         XCTAssertEqual(header.version, .v2)
         XCTAssertEqual(header.padding, false)
         XCTAssertEqual(header.extension, false)
@@ -52,7 +52,7 @@ final class RTPHeaderTests: XCTestCase {
         var writer = BinaryWriter()
         try header.write(to: &writer)
         var reader = BinaryReader(bytes: writer.bytesStore)
-        XCTAssertEqual(header, try RTPHeader(reader: &reader))
+        XCTAssertEqual(header, try RTPHeader(from: &reader))
     }
 
     static var allTests = [

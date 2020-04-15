@@ -169,7 +169,7 @@ extension H264 {
 }
 
 extension H264.NALUnitHeader {
-    public init<D>(reader: inout BinaryReader<D>) throws where D: DataProtocol {
+    public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         forbiddenZeroBit = try reader.readBool()
         referenceIndex = try reader.readBits(2)
         type = H264.NALUnitType(rawValue: try reader.readBits(5))
@@ -217,7 +217,7 @@ struct FragmentationUnitHeader: Hashable {
 }
 
 extension FragmentationUnitHeader {
-    public init<D>(reader: inout BinaryReader<D>) throws where D: DataProtocol {
+    public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         isStart = try reader.readBool()
         isEnd = try reader.readBool()
         reservedBit = try reader.readBool()
@@ -244,7 +244,7 @@ struct FragmentationUnitTypeAParser<D: MutableDataProtocol> where D.Index == Int
     private var fragmentHeader: H264.NALUnitHeader?
     private var fragmentPayload: D.SubSequence?
     mutating func readPackage(from reader: inout BinaryReader<D>, header: H264.NALUnitHeader) throws -> [H264.NALUnit<D.SubSequence>] {
-        let unitHeader = try FragmentationUnitHeader(reader: &reader)
+        let unitHeader = try FragmentationUnitHeader(from: &reader)
         guard unitHeader.isStart != true || unitHeader.isEnd != true else {
             throw Error.startAndEndBitIsSetInTheSamePackage
         }
@@ -306,7 +306,7 @@ extension H264 {
         private var fragmentationUnitTypeAParser = FragmentationUnitTypeAParser<D>()
         public init() {}
         public mutating func readPackage(from reader: inout BinaryReader<D>) throws -> [H264.NALUnit<D.SubSequence>] {
-            let header = try H264.NALUnitHeader(reader: &reader)
+            let header = try H264.NALUnitHeader(from: &reader)
             if header.type.isSinglePacket {
                 return [H264.NALUnit(header: header, payload: try reader.readRemainingBytes())]
             }
@@ -325,7 +325,7 @@ extension H264 {
                 defer { isEmpty = reader.isEmpty }
                 let naluSize = try reader.readInteger(type: UInt16.self)
                 guard naluSize >= 1 else { throw Error.singleTimeAggreationPackageA_sizOfChildNALUToSmall }
-                let header = try H264.NALUnitHeader(reader: &reader)
+                let header = try H264.NALUnitHeader(from: &reader)
                 let payloadSize = naluSize - 1
                 return H264.NALUnit(header: header, payload: try reader.readBytes(Int(payloadSize)))
             }

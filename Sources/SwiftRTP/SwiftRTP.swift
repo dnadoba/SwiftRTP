@@ -94,7 +94,7 @@ public struct RTPHeader: Equatable {
 }
 
 extension RTPHeader {
-    public init<D>(reader: inout BinaryReader<D>) throws where D: DataProtocol {
+    public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         self.version = RTPVersion(rawValue: try reader.readBits(2))
         self.padding = try reader.readBool()
         self.extension = try reader.readBool()
