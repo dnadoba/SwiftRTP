@@ -53,17 +53,48 @@ final class H264Tests: XCTestCase {
         //                                   forbidden zero bit
     }
     
-    func testSingleTimeAggregationPacket() throws {
+    func testSingleNALUPacket() throws {
+        var nonIDRSlice = try XCTUnwrap(BinaryReader(hexString:  "41000e109af27843c994c08257fffea99736b34608cb33ed103722b71cf53fbaa2e7878068f82025f25be6ae0c2f9edf8a63d9f7a273cb7f16cec49968496f56109df506dba2e6f310054e4d64e2a39fbc511c64c61574d8f3e0bb469b26f58be574b268b8cc1acb9590a4156f9bb3d8d649f07fdf9de360b8074add152a489058b739cb82314249203a0b0def7e57feec625e5691fadd65404e19c83af025ca299984d925501707180dc4c04b9fb071"))
+        var parser = H264.NALNonInterleavedPacketParser<[UInt8]>()
+        let nalus = try parser.readPackage(from: &nonIDRSlice)
+        XCTAssertTrue(nonIDRSlice.isEmpty)
+        XCTAssertEqual(nalus.count, 1)
+        let nonIDRSliceNalu = try XCTUnwrap(nalus.first)
+        XCTAssertEqual(nonIDRSliceNalu.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .nonInstantaneousDecodingRefreshCodedSlice))
+        XCTAssertEqual(Array(nonIDRSliceNalu.payload), BinaryReader(hexString: "000e109af27843c994c08257fffea99736b34608cb33ed103722b71cf53fbaa2e7878068f82025f25be6ae0c2f9edf8a63d9f7a273cb7f16cec49968496f56109df506dba2e6f310054e4d64e2a39fbc511c64c61574d8f3e0bb469b26f58be574b268b8cc1acb9590a4156f9bb3d8d649f07fdf9de360b8074add152a489058b739cb82314249203a0b0def7e57feec625e5691fadd65404e19c83af025ca299984d925501707180dc4c04b9fb071")?.bytesStore)
+    }
+    
+    func testSingleTimeAggregationPacket_1() throws {
         let singleTimeAggregationPacketAWithSPSAndPPS = "1800176742c028da01e0089f97011000003e90000bb800f1832a000468ce3c80"
         var reader = try XCTUnwrap(BinaryReader(hexString: singleTimeAggregationPacketAWithSPSAndPPS))
-        var a = H264.NALNonInterleavedPacketParser<[UInt8]>()
-        let nalus = try a.readPackage(from: &reader)
+        var parser = H264.NALNonInterleavedPacketParser<[UInt8]>()
+        let nalus = try parser.readPackage(from: &reader)
         let sps = try XCTUnwrap(nalus.first)
         let pps = try XCTUnwrap(nalus.last)
         XCTAssertEqual(sps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .sequenceParameterSet))
         XCTAssertEqual(sps.payload.count, 22)
         XCTAssertEqual(pps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .pictureParameterSet))
         XCTAssertEqual(pps.payload.count, 3)
+    }
+    
+    func testSingleTimeAggregationPacket_2() throws {
+        let singleTimeAggregationPacketAWithSPS_PPS_SEI = "1800176742c028da01e0089f97011000003e90000bb800f1832a000468ce3c8002640605ffff60dc45e9bde6d948b7962cd820d923eeef78323634202d20636f7265203135352072323931372030613834643938202d20482e3236342f4d5045472d342041564320636f646563202d20436f70796c65667420323030332d32303138202d20687474703a2f2f7777772e766964656f6c616e2e6f72672f783236342e68746d6c202d206f7074696f6e733a2063616261633d30207265663d31206465626c6f636b3d303a303a3020616e616c7973653d303a30206d653d646961207375626d653d30207073793d31207073795f72643d312e30303a302e3030206d697865645f7265663d30206d655f72616e67653d3136206368726f6d615f6d653d31207472656c6c69733d31203878386463743d302063716d3d3020646561647a6f6e653d32312c313120666173745f70736b69703d31206368726f6d615f71705f6f66667365743d3020746872656164733d3132206c6f6f6b61686561645f746872656164733d3220736c696365645f746872656164733d30206e723d3020646563696d6174653d3120696e7465726c616365643d3020626c757261795f636f6d7061743d3020636f6e73747261696e65645f696e7472613d3020626672616d65733d3020776569676874703d30206b6579696e743d323530206b6579696e745f6d696e3d3233207363656e656375743d3020696e7472615f726566726573683d302072633d616272206d62747265653d3020626974726174653d3930302072617465746f6c3d312e302071636f6d703d302e36302071706d696e3d302071706d61783d3639207170737465703d342069705f726174696f3d312e34302061713d300080"
+        
+        var reader = try XCTUnwrap(BinaryReader(hexString: singleTimeAggregationPacketAWithSPS_PPS_SEI))
+        var parser = H264.NALNonInterleavedPacketParser<[UInt8]>()
+        let nalus = try parser.readPackage(from: &reader)
+        XCTAssertEqual(nalus.count, 3)
+        guard nalus.count >= 3 else { return }
+        
+        let sps = nalus[0]
+        let pps = nalus[1]
+        let sei = nalus[2]
+        XCTAssertEqual(sps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .sequenceParameterSet))
+        XCTAssertEqual(Array(sps.payload), BinaryReader(hexString: "42c028da01e0089f97011000003e90000bb800f1832a")?.bytesStore)
+        XCTAssertEqual(pps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .pictureParameterSet))
+        XCTAssertEqual(Array(pps.payload), BinaryReader(hexString: "ce3c80")?.bytesStore)
+        XCTAssertEqual(sei.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 0, type: .supplementalEnhancementInformation))
+        XCTAssertEqual(Array(sei.payload), BinaryReader(hexString: "05ffff60dc45e9bde6d948b7962cd820d923eeef78323634202d20636f7265203135352072323931372030613834643938202d20482e3236342f4d5045472d342041564320636f646563202d20436f70796c65667420323030332d32303138202d20687474703a2f2f7777772e766964656f6c616e2e6f72672f783236342e68746d6c202d206f7074696f6e733a2063616261633d30207265663d31206465626c6f636b3d303a303a3020616e616c7973653d303a30206d653d646961207375626d653d30207073793d31207073795f72643d312e30303a302e3030206d697865645f7265663d30206d655f72616e67653d3136206368726f6d615f6d653d31207472656c6c69733d31203878386463743d302063716d3d3020646561647a6f6e653d32312c313120666173745f70736b69703d31206368726f6d615f71705f6f66667365743d3020746872656164733d3132206c6f6f6b61686561645f746872656164733d3220736c696365645f746872656164733d30206e723d3020646563696d6174653d3120696e7465726c616365643d3020626c757261795f636f6d7061743d3020636f6e73747261696e65645f696e7472613d3020626672616d65733d3020776569676874703d30206b6579696e743d323530206b6579696e745f6d696e3d3233207363656e656375743d3020696e7472615f726566726573683d302072633d616272206d62747265653d3020626974726174653d3930302072617465746f6c3d312e302071636f6d703d302e36302071706d696e3d302071706d61783d3639207170737465703d342069705f726174696f3d312e34302061713d300080")?.bytesStore)
     }
     
     func testFragmentedPacketA() throws {

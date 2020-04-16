@@ -27,6 +27,8 @@ final class RTPHeaderTests: XCTestCase {
         XCTAssertEqual(header.sequenceNumber, 56880)
         XCTAssertEqual(header.timestamp, 2579564480)
         XCTAssertEqual(header.synchronisationSource, 2568972750)
+        XCTAssertEqual(header.contributingSourceCount, 0)
+        XCTAssertEqual(header.contributingSources, nil)
         
         var bin = BinaryWriter()
         

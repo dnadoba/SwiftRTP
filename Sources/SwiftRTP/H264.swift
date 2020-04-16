@@ -284,13 +284,9 @@ struct FragmentationUnitTypeAParser<D: MutableDataProtocol> where D.Index == Int
 struct While: Sequence {
     var `while`: () -> Bool
     func makeIterator() -> AnyIterator<Void> {
-        return AnyIterator({
-            if self.`while`() {
-                return ()
-            } else {
-                return nil
-            }
-        })
+        .init {
+            self.`while`() ? () : nil
+        }
     }
     init(_ while: @escaping () -> Bool) {
         self.`while` = `while`
