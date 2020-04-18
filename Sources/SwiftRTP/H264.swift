@@ -199,6 +199,10 @@ extension H264 {
     public struct NALUnit<D: DataProtocol> where D.Index == Int {
         public var header: H264.NALUnitHeader
         public var payload: D
+        public init(header: H264.NALUnitHeader, payload: D) {
+            self.header = header
+            self.payload = payload
+        }
     }
 }
 
@@ -390,9 +394,9 @@ let sizeOfFragmentationUnitIndicatorAndHeader = 2
 
 extension H264 {
     public struct NALNonInterleavedPacketSerializer<D: MutableDataProtocol> where D.Index == Int {
-        var maxSizeOfNaluPacket: Int
+        public var maxSizeOfNaluPacket: Int
         var maxSizeOfNaluInSingleTimeAggregationPacketA: Int { maxSizeOfNaluPacket - sizeOfSingleTimeAggregationPacketA(naluSizeSum: 0, naluCount: 1) }
-        var payloadType: RTPPayloadType = .h264
+        public var payloadType: RTPPayloadType = .h264
         public enum Error: Swift.Error {
         }
         public init(maxSizeOfNalu: Int) {

@@ -195,7 +195,7 @@ struct RTPSequenceNumberGenerator {
     }
 }
 
-public struct RTPSerialzer<D: MutableDataProtocol> where D.Index == Int {
+public struct RTPSerialzer{
     public var maxSizeOfPacket: Int
     public var version: RTPVersion = .v2
     public var synchronisationSource: RTPSynchronizationSource
@@ -219,7 +219,7 @@ public struct RTPSerialzer<D: MutableDataProtocol> where D.Index == Int {
         maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
     }
     
-    public mutating func serialze(_ packet: RTPPacket<D>) throws -> D {
+    public mutating func serialze<PacketData, SerialzedData>(_ packet: RTPPacket<PacketData>) throws -> SerialzedData where PacketData: DataProtocol, SerialzedData: MutableDataProtocol, SerialzedData.Index == Int {
         let header = RTPHeader(
             version: version,
             padding: packet.includesPadding,
@@ -233,7 +233,7 @@ public struct RTPSerialzer<D: MutableDataProtocol> where D.Index == Int {
         
         let size = header.size + packet.payload.count
         assert(size <= maxSizeOfPacket)
-        var writer = BinaryWriter<D>(capacity: size)
+        var writer = BinaryWriter<SerialzedData>(capacity: size)
         try header.write(to: &writer)
         writer.writeBytes(packet.payload)
         return writer.bytesStore
