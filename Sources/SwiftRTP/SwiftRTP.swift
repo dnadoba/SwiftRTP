@@ -44,13 +44,13 @@ public struct RTPContributingSource: RawRepresentable, Hashable {
 
 public struct RTPHeader: Equatable {
     /// This field identifies the version of RTP
-    public var version: RTPVersion
+    public var version: RTPVersion = .v2
     
     /// If the padding bit is set, the packet contains one or more additional padding octets at the end which are not part of the payload. The last octet of the padding contains a count of how many padding octets should be ignored, including itself. Padding may be needed by some encryption algorithms with fixed block sizes or for carrying several RTP packets in a lower-layer protocol data unit.
-    public var padding: Bool
+    public var padding: Bool = false
     
     /// If true, the fixed header must be followed by exactly one header extension, with a format defined in Section 5.3.1.
-    public var `extension`: Bool
+    public var `extension`: Bool = false
     
     /// The Contributing source (CSRC) count contains the number of CSRC identifiers that follow the fixed header.
     public var contributingSourceCount: Int { contributingSources?.count ?? 0 }
@@ -80,7 +80,17 @@ public struct RTPHeader: Equatable {
     /// - Note: 0 to 15 items
     public var contributingSources: [RTPContributingSource]?
     
-    public init(version: RTPVersion, padding: Bool, extension: Bool, marker: Bool, payloadType: RTPPayloadType, sequenceNumber: UInt16, timestamp: UInt32, synchronisationSource: RTPSynchronizationSource, contributingSources: [RTPContributingSource]? = nil) {
+    public init(
+        version: RTPVersion = .v2,
+        padding: Bool = false,
+        extension: Bool = false,
+        marker: Bool,
+        payloadType: RTPPayloadType,
+        sequenceNumber: UInt16,
+        timestamp: UInt32,
+        synchronisationSource: RTPSynchronizationSource,
+        contributingSources: [RTPContributingSource]? = nil
+    ) {
         self.version = version
         self.padding = padding
         self.extension = `extension`
@@ -129,7 +139,14 @@ extension RTPHeader {
             writer.writeInt(contributingSource.rawValue)
         }
     }
+    func asNetworkData<D>(type: D.Type = D.self) throws -> D where D: MutableDataProtocol, D.Index == Int {
+        var writer = BinaryWriter<D>(capacity: size)
+        try write(to: &writer)
+        return writer.bytesStore
+    }
 }
+
+
 
 extension RTPHeader {
     static func size(contributingSourceCount: Int) -> Int{
@@ -139,5 +156,86 @@ extension RTPHeader {
     /// size in bytes if written to the network
     var size: Int {
         Self.size(contributingSourceCount: contributingSourceCount)
+    }
+}
+
+
+public struct RTPPacket<D: DataProtocol> {
+    public var payloadType: RTPPayloadType
+    public var timestamp: UInt32
+    public var marker: Bool
+    public var includesPadding: Bool = false
+    public var includesHeaderExtension: Bool = false
+    public var payload: D
+    
+    internal init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
+        self.payloadType = payloadType
+        self.timestamp = timestamp
+        self.marker = marker
+        self.includesPadding = includesPadding
+        self.includesHeaderExtension = includesHeaderExtension
+        self.payload = payload
+    }
+}
+
+extension RTPPacket: Equatable where D: Equatable {}
+extension RTPPacket: Hashable where D: Hashable {}
+
+struct RTPSequenceNumberGenerator {
+    private var sequenceNumber: UInt16
+    init() {
+        self.init(inital: .random(in: UInt16.min...UInt16.max))
+    }
+    init(inital sequenceNumber: UInt16) {
+        self.sequenceNumber = sequenceNumber
+    }
+    mutating func next() -> UInt16 {
+        defer { sequenceNumber &+= 1 }
+        return sequenceNumber
+    }
+}
+
+public struct RTPSerialzer<D: MutableDataProtocol> where D.Index == Int {
+    public var maxSizeOfPacket: Int
+    public var version: RTPVersion = .v2
+    public var synchronisationSource: RTPSynchronizationSource
+    public var contributingSources: [RTPContributingSource] = []
+    private var sequenceNumberGenerator = RTPSequenceNumberGenerator()
+    public init(
+        maxSizeOfPacket: Int,
+        synchronisationSource: RTPSynchronizationSource,
+        contributingSources: [RTPContributingSource] = [],
+        version: RTPVersion = .v2,
+        initalSequenceNumber: UInt16? = nil
+    ) {
+        self.maxSizeOfPacket = maxSizeOfPacket
+        self.version = version
+        self.synchronisationSource = synchronisationSource
+        self.contributingSources = contributingSources
+        self.sequenceNumberGenerator = initalSequenceNumber.map(RTPSequenceNumberGenerator.init(inital:)) ?? RTPSequenceNumberGenerator()
+    }
+    
+    public var maxSizeOfPayload: Int {
+        maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
+    }
+    
+    public mutating func serialze(_ packet: RTPPacket<D>) throws -> D {
+        let header = RTPHeader(
+            version: version,
+            padding: packet.includesPadding,
+            extension: packet.includesHeaderExtension,
+            marker: packet.marker,
+            payloadType: packet.payloadType,
+            sequenceNumber: sequenceNumberGenerator.next(),
+            timestamp: packet.timestamp,
+            synchronisationSource: synchronisationSource
+        )
+        
+        let size = header.size + packet.payload.count
+        assert(size <= maxSizeOfPacket)
+        var writer = BinaryWriter<D>(capacity: size)
+        try header.write(to: &writer)
+        writer.writeBytes(packet.payload)
+        return writer.bytesStore
     }
 }

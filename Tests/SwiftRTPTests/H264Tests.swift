@@ -385,4 +385,16 @@ final class H264Tests: XCTestCase {
             ],
             timestamp: 8, marker: true))
     }
+    
+    func testSplitMaxLength() {
+        XCTAssertEqual([1,2,3,4,5,6,7,8].split(maxLength: 4), [[1,2,3,4], [5,6,7,8]])
+        XCTAssertEqual([1,2,3,4,5,6,7].split(maxLength: 4), [[1,2,3,4], [5,6,7]])
+        XCTAssertEqual([1,2,3,4,5,6].split(maxLength: 4), [[1,2,3,4], [5,6]])
+        XCTAssertEqual([1,2,3,4,5].split(maxLength: 4), [[1,2,3,4], [5]])
+        XCTAssertEqual([1,2,3,4].split(maxLength: 4), [[1,2,3,4]])
+        XCTAssertEqual([1,2,3].split(maxLength: 4), [[1,2,3]])
+        XCTAssertEqual([1,2].split(maxLength: 4), [[1,2]])
+        XCTAssertEqual([1].split(maxLength: 4), [[1]])
+        XCTAssertEqual([Int]().split(maxLength: 4), [])
+    }
 }

@@ -358,85 +358,19 @@ extension H264 {
     }
 }
 
-public struct RTPPacket<D: DataProtocol> {
-    public var payloadType: RTPPayloadType
-    public var timestamp: UInt32
-    public var marker: Bool
-    public var includesPadding: Bool = false
-    public var includesHeaderExtension: Bool = false
-    public var payload: D
-    
-    internal init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
-        self.payloadType = payloadType
-        self.timestamp = timestamp
-        self.marker = marker
-        self.includesPadding = includesPadding
-        self.includesHeaderExtension = includesHeaderExtension
-        self.payload = payload
-    }
-}
-
-extension RTPPacket: Equatable where D: Equatable {}
-extension RTPPacket: Hashable where D: Hashable {}
-
-struct RTPSequenceNumberGenerator {
-    private var sequenceNumber: UInt16
-    init() {
-        self.init(inital: .random(in: UInt16.min...UInt16.max))
-    }
-    init(inital sequenceNumber: UInt16) {
-        self.sequenceNumber = sequenceNumber
-    }
-    mutating func next() -> UInt16 {
-        defer { sequenceNumber &+= 1 }
-        return sequenceNumber
-    }
-}
-
-public struct RTPSerialzer<D: MutableDataProtocol> where D.Index == Int {
-    
-    public var maxSizeOfPacket: Int
-    public var version: RTPVersion = .v2
-    public var synchronisationSource: RTPSynchronizationSource
-    public var contributingSources: [RTPContributingSource]
-    private var sequenceNumberGenerator = RTPSequenceNumberGenerator()
-    
-    public var maxSizeOfPayload: Int {
-        maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
-    }
-    
-    public mutating func serialze(_ packet: RTPPacket<D>) throws -> D {
-        let header = RTPHeader(
-            version: version,
-            padding: packet.includesPadding,
-            extension: packet.includesHeaderExtension,
-            marker: packet.marker,
-            payloadType: packet.payloadType,
-            sequenceNumber: sequenceNumberGenerator.next(),
-            timestamp: packet.timestamp,
-            synchronisationSource: synchronisationSource
-        )
-        
-        var writer = BinaryWriter<D>(capacity: header.size + packet.payload.count)
-        try header.write(to: &writer)
-        writer.writeBytes(packet.payload)
-        return writer.bytesStore
-    }
-}
-
 extension Collection {
     /// Splits the given sequence up into slices that contain `maxLength` elements. The last slice can contain less than `maxLength` elements.
     /// - Parameter maxLength: number of items in one slice. Must be greater than 0.
     /// - Returns: Slices with `maxLength` elements each. The last slice can contain less than `maxLength` elements.
     /// - Precondition: sliceLength > 0
     func split(maxLength: Int) -> [SubSequence] {
-        precondition(maxLength > 0, "sliceLength must be greater than 0")
+        precondition(maxLength > 0, "`sliceLength` must be greater than 0")
         var slices = [SubSequence]()
         slices.reserveCapacity(count/maxLength)
-        var subsequence = self[...]
-        while !subsequence.isEmpty {
-            slices.append(subsequence.prefix(maxLength))
-            subsequence = subsequence.dropFirst(maxLength)
+        var remainingSubsequence = self[...]
+        while !remainingSubsequence.isEmpty {
+            slices.append(remainingSubsequence.prefix(maxLength))
+            remainingSubsequence = remainingSubsequence.dropFirst(maxLength)
         }
         return slices
     }
