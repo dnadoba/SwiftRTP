@@ -177,4 +177,212 @@ final class H264Tests: XCTestCase {
         XCTAssertEqual(header, parsedHeader)
         XCTAssertTrue(reader.isEmpty)
     }
+    
+    // MARK: - NALNonInterleavedPacketSerializer
+    func testSinglePacketSerialization() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 100)
+        let ppsNalu = H264.NALUnit(header: .init(referenceIndex: 1, type: .pictureParameterSet), payload: [0, 1, 2])
+        
+        XCTAssertEqual(
+            try serializer.serialize([ppsNalu], timestamp: 8, lastNALUsForGivenTimestamp: true),
+            [RTPPacket(
+                payloadType: .h264,
+                payload: [
+                    H264.NALUnitHeader(referenceIndex: 1, type: .pictureParameterSet).byte,
+                    0, 1, 2
+                ],
+                timestamp: 8, marker: true)])
+        
+        XCTAssertEqual(
+            try serializer.serialize([ppsNalu], timestamp: .max, lastNALUsForGivenTimestamp: false),
+            [RTPPacket(
+                payloadType: .h264,
+                payload: [
+                    H264.NALUnitHeader(referenceIndex: 1, type: .pictureParameterSet).byte,
+                    0, 1, 2
+                ],
+                timestamp: .max, marker: false)])
+    }
+    func testSerializationOfSingleTimeAggreationPacketTypeA() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 100)
+        let ppsNalu = H264.NALUnit(header: .init(referenceIndex: 2, type: .pictureParameterSet), payload: [0, 1, 2])
+        let spsNalu = H264.NALUnit(header: .init(referenceIndex: 1, type: .sequenceParameterSet), payload: [3, 4, 5, 6, 7])
+        let nalus = [ppsNalu, spsNalu]
+        XCTAssertEqual(
+            try serializer.serialize(nalus, timestamp: 8, lastNALUsForGivenTimestamp: true),
+            [RTPPacket(
+                payloadType: .h264,
+                payload: [
+                    H264.NALUnitHeader(referenceIndex: 2, type: .singleTimeAggregationPacketA).byte,
+                    // PPS
+                    0, 4, // size of ppsNalu as UInt16
+                    H264.NALUnitHeader(referenceIndex: 2, type: .pictureParameterSet).byte,
+                    0, 1, 2, // payload of PPS
+                    // SPS
+                    0, 6, // size of spsNalu as UInt16
+                    H264.NALUnitHeader(referenceIndex: 1, type: .sequenceParameterSet).byte,
+                    3, 4, 5, 6, 7, // payload of SPS
+                ],
+                timestamp: 8, marker: true)])
+        
+        XCTAssertEqual(
+            try serializer.serialize(nalus, timestamp: 12, lastNALUsForGivenTimestamp: false),
+            [RTPPacket(
+                payloadType: .h264,
+                payload: [
+                    H264.NALUnitHeader(referenceIndex: 2, type: .singleTimeAggregationPacketA).byte,
+                    // PPS
+                    0, 4, // size of ppsNalu as UInt16
+                    H264.NALUnitHeader(referenceIndex: 2, type: .pictureParameterSet).byte,
+                    0, 1, 2, // payload of PPS
+                    // SPS
+                    0, 6, // size of spsNalu as UInt16
+                    H264.NALUnitHeader(referenceIndex: 1, type: .sequenceParameterSet).byte,
+                    3, 4, 5, 6, 7, // payload of SPS
+                ],
+                timestamp: 12, marker: false)])
+    }
+    
+    func testSerializationOfFrgmentationUnitTypeAWith3Fragments() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let idrNalu = H264.NALUnit(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5,6])
+        let packets = try serializer.serialize([idrNalu], timestamp: 8, lastNALUsForGivenTimestamp: true)
+        XCTAssertEqual(packets.count, 3)
+        XCTAssertEqual(packets[safe: 0], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                0, 1, 2
+            ],
+            timestamp: 8, marker: false))
+        XCTAssertEqual(packets[safe: 1], RTPPacket(
+        payloadType: .h264,
+        payload: [
+            H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+            FragmentationUnitHeader(isStart: false, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            3, 4, 5
+        ],
+        timestamp: 8, marker: false))
+        XCTAssertEqual(packets[safe: 2], RTPPacket(
+        payloadType: .h264,
+        payload: [
+            H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+            FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            6,
+        ],
+        timestamp: 8, marker: true))
+    }
+    func testSerializationOfFrgmentationUnitTypeAWith2Fragments() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let idrNalu = H264.NALUnit(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5])
+        let packets = try serializer.serialize([idrNalu], timestamp: 8, lastNALUsForGivenTimestamp: true)
+        XCTAssertEqual(packets.count, 2)
+        XCTAssertEqual(packets[safe: 0], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                0, 1, 2
+            ],
+            timestamp: 8, marker: false))
+        XCTAssertEqual(packets[safe: 1], RTPPacket(
+        payloadType: .h264,
+        payload: [
+            H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+            FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            3, 4, 5
+        ],
+        timestamp: 8, marker: true))
+    }
+    func testSerializationOfTwoNALUsThatAreToBigToFitIntoASinglePackage() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let nIDRNalu1 = H264.NALUnit(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [0])
+        let nIDRNalu2 = H264.NALUnit(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [4,5,6,7])
+        let packets = try serializer.serialize([nIDRNalu1, nIDRNalu2], timestamp: 9999, lastNALUsForGivenTimestamp: true)
+        XCTAssertEqual(packets.count, 2)
+        XCTAssertEqual(packets[safe: 0], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 1, type: H264.NALUnitType.nonInstantaneousDecodingRefreshCodedSlice).byte,
+                0,
+            ],
+            timestamp: 9999, marker: false))
+        XCTAssertEqual(packets[safe: 1], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 1, type: H264.NALUnitType.nonInstantaneousDecodingRefreshCodedSlice).byte,
+                4,5,6,7,
+            ],
+            timestamp: 9999, marker: true))
+    }
+    
+    func testSerializationOf_SinglePacket_And_STAP() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 10)
+        let nIDRNalu1 = H264.NALUnit(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3])
+        let nIDRNalu2 = H264.NALUnit(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [3])
+        let nIDRNalu3 = H264.NALUnit(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [4])
+        let packets = try serializer.serialize([nIDRNalu1, nIDRNalu2, nIDRNalu3], timestamp: 9999, lastNALUsForGivenTimestamp: true)
+        XCTAssertEqual(packets.count, 2)
+        XCTAssertEqual(packets[safe: 0], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 1, type: H264.NALUnitType.nonInstantaneousDecodingRefreshCodedSlice).byte,
+                0,1,2,3, // payload of nIDRNalu1
+            ],
+            timestamp: 9999, marker: false))
+        XCTAssertEqual(packets[safe: 1], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 1, type: .singleTimeAggregationPacketA).byte,
+                // nIDR1
+                0, 2, // size of nIDRNalu2 as UInt16
+                H264.NALUnitHeader(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice).byte,
+                3, // payload of nIDRNalu2
+                
+                // nIDR2
+                0, 2, // size of nIDRNalu3 as UInt16
+                H264.NALUnitHeader(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice).byte,
+                4, // payload of nIDRNalu3
+            ],
+            timestamp: 9999, marker: true))
+    }
+    func testSerializationOf_SinglePacket_and_FUA_with2Fragments() throws {
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 10)
+        let ppsNalu = H264.NALUnit(header: .init(referenceIndex: 2, type: .pictureParameterSet), payload: [0])
+        let spsNalu = H264.NALUnit(header: .init(referenceIndex: 1, type: .sequenceParameterSet), payload: [1, 2])
+        let idrNalu = H264.NALUnit(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5,6,7,8,9,10])
+        let packets = try serializer.serialize([ppsNalu, spsNalu, idrNalu], timestamp: 8, lastNALUsForGivenTimestamp: true)
+        XCTAssertEqual(packets.count, 3)
+        XCTAssertEqual(packets[safe: 0], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 2, type: .singleTimeAggregationPacketA).byte,
+                // PPS
+                0, 2, // size of ppsNalu as UInt16
+                H264.NALUnitHeader(referenceIndex: 2, type: .pictureParameterSet).byte,
+                0, // payload of PPS
+                // SPS
+                0, 3, // size of spsNalu as UInt16
+                H264.NALUnitHeader(referenceIndex: 1, type: .sequenceParameterSet).byte,
+                1, 2, // payload of SPS
+            ],
+            timestamp: 8, marker: false))
+        XCTAssertEqual(packets[safe: 1], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                0,1,2,3,4,5,6,7
+            ],
+            timestamp: 8, marker: false))
+        XCTAssertEqual(packets[safe: 2], RTPPacket(
+            payloadType: .h264,
+            payload: [
+                H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
+                FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                8,9,10,
+            ],
+            timestamp: 8, marker: true))
+    }
 }

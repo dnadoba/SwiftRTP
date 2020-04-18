@@ -130,3 +130,14 @@ extension RTPHeader {
         }
     }
 }
+
+extension RTPHeader {
+    static func size(contributingSourceCount: Int) -> Int{
+        12 + // fixed size of the header
+        contributingSourceCount * 4 // size of the optional CSRC identifiers
+    }
+    /// size in bytes if written to the network
+    var size: Int {
+        Self.size(contributingSourceCount: contributingSourceCount)
+    }
+}

@@ -23,3 +23,11 @@ extension RTPContributingSource: ExpressibleByIntegerLiteral {
         self.init(rawValue: value)
     }
 }
+
+
+extension RandomAccessCollection {
+    public subscript(safe index: Index) -> Element? {
+        guard indices.contains(index) else { return nil }
+        return self[index]
+    }
+}
