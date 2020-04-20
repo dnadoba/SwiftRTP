@@ -219,7 +219,10 @@ public struct RTPSerialzer{
         maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
     }
     
-    public mutating func serialze<PacketData, SerialzedData>(_ packet: RTPPacket<PacketData>) throws -> SerialzedData where PacketData: DataProtocol, SerialzedData: MutableDataProtocol, SerialzedData.Index == Int {
+    public mutating func serialze<PacketData, SerialzedData>(
+        _ packet: RTPPacket<PacketData>,
+        dataType: SerialzedData.Type = SerialzedData.self
+    ) throws -> SerialzedData where PacketData: DataProtocol, SerialzedData: MutableDataProtocol, SerialzedData.Index == Int {
         let header = RTPHeader(
             version: version,
             padding: packet.includesPadding,
