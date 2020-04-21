@@ -82,6 +82,7 @@ extension H264 {
         public var rawValue: UInt8
         
         /// - Parameter rawValue: allowed value range is from 0 to 31 inclusive (only the first 5 bits)
+        @inlinable
         public init(rawValue: UInt8) {
             assert(rawValue & 0b0001_1111 == rawValue, "\(Self.self) is only allowed to use the first 5 bit's of rawValue.")
             self.rawValue = rawValue & 0b0001_1111
@@ -138,10 +139,10 @@ extension H264.NALUnitType: CustomStringConvertible {
 }
 
 public extension H264.NALUnitType {
-    var isVideoCodingLayer: Bool { (1...5).contains(rawValue) }
-    var isNonVideoCodingLayer: Bool { !isVideoCodingLayer }
-    var isSinglePacket: Bool { (1...23).contains(rawValue) }
-    var isReserved: Bool {
+    @inlinable var isVideoCodingLayer: Bool { (1...5).contains(rawValue) }
+    @inlinable var isNonVideoCodingLayer: Bool { !isVideoCodingLayer }
+    @inlinable var isSinglePacket: Bool { (1...23).contains(rawValue) }
+    @inlinable var isReserved: Bool {
         [.reserved0,
          .reserved16, .reserved17, .reserved18,
          .reserved22, .reserved23,
@@ -171,6 +172,7 @@ extension H264 {
 }
 
 extension H264.NALUnitHeader {
+    @inlinable
     public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         forbiddenZeroBit = try reader.readBool()
         referenceIndex = try reader.readBits(2)
@@ -179,11 +181,13 @@ extension H264.NALUnitHeader {
 }
 
 extension H264.NALUnitHeader {
+    @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol {
         writer.writeBool(forbiddenZeroBit)
         writer.writeBits(from: referenceIndex, count: 2)
         writer.writeBits(from: type.rawValue, count: 5)
     }
+    @inlinable
     public var byte: UInt8 {
         var writer = BinaryWriter()
         try! self.write(to: &writer)
@@ -199,6 +203,7 @@ extension H264 {
     public struct NALUnit<D: DataProtocol> where D.Index == Int {
         public var header: H264.NALUnitHeader
         public var payload: D
+        @inlinable
         public init(header: H264.NALUnitHeader, payload: D) {
             self.header = header
             self.payload = payload
@@ -207,6 +212,7 @@ extension H264 {
 }
 
 extension H264.NALUnit {
+    @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol, D.Index == Int {
         try header.write(to: &writer)
         writer.writeBytes(payload)
@@ -214,6 +220,7 @@ extension H264.NALUnit {
 }
 
 extension H264.NALUnit where D: MutableDataProtocol {
+    @inlinable
     public var bytes: D {
         var mutableData = D([header.byte])
         mutableData.append(contentsOf: payload)
@@ -228,18 +235,20 @@ extension H264.NALUnit {
 
 extension H264.NALUnit: Equatable where D: Equatable {}
 extension H264.NALUnit: Hashable where D: Hashable {}
-
-struct FragmentationUnitHeader: Hashable {
-    /// `isStart` indicates the start of a fragmented NAL unit.  When the following FU payload is not the start of a fragmented NAL unit payload, `isStart` is set to false.
-    var isStart: Bool
-    /// When set to ture, `isEnd` indicates the end of a fragmented NAL unit, i.e., the last byte of the payload is also the last byte of the fragmented NAL unit. When the following FU payload is not the last fragment of a fragmented NAL unit, `isEnd` is set to false.
-    var isEnd: Bool
-    /// The Reserved bit MUST be equal to 0 and MUST be ignored by the receiver.
-    var reservedBit: Bool = false
-    var type: H264.NALUnitType
+extension H264 {
+    public struct FragmentationUnitHeader: Hashable {
+        /// `isStart` indicates the start of a fragmented NAL unit.  When the following FU payload is not the start of a fragmented NAL unit payload, `isStart` is set to false.
+        public var isStart: Bool
+        /// When set to ture, `isEnd` indicates the end of a fragmented NAL unit, i.e., the last byte of the payload is also the last byte of the fragmented NAL unit. When the following FU payload is not the last fragment of a fragmented NAL unit, `isEnd` is set to false.
+        public var isEnd: Bool
+        /// The Reserved bit MUST be equal to 0 and MUST be ignored by the receiver.
+        public var reservedBit: Bool = false
+        public var type: H264.NALUnitType
+    }
 }
 
-extension FragmentationUnitHeader {
+extension H264.FragmentationUnitHeader {
+    @inlinable
     public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         isStart = try reader.readBool()
         isEnd = try reader.readBool()
@@ -248,79 +257,87 @@ extension FragmentationUnitHeader {
     }
 }
 
-extension FragmentationUnitHeader {
+extension H264.FragmentationUnitHeader {
+    @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol {
         writer.writeBool(isStart)
         writer.writeBool(isEnd)
         writer.writeBool(reservedBit)
         writer.writeBits(from: type.rawValue, count: 5)
     }
-    var byte: UInt8 {
+    @inlinable
+    public var byte: UInt8 {
         var writer = BinaryWriter()
         try! self.write(to: &writer)
         return writer.bytes[0]
     }
 }
 
-extension FragmentationUnitHeader {
+extension H264.FragmentationUnitHeader {
     /// size in bytes if written to the network
     var size: Int { 1 }
 }
-
-struct FragmentationUnitTypeAParser<D: MutableDataProtocol> where D.Index == Int {
-    enum Error: Swift.Error {
-        case startAndEndBitIsSetInTheSamePackage
-        case recivedFragmentBeforeStartFragment
-        case recivedFragmentWithDifferentHeader
-        case recivedFragmentEndBeforeStartFragment
-    }
-    private var fragmentHeader: H264.NALUnitHeader?
-    private var fragmentPayload: D.SubSequence?
-    mutating func readPackage(from reader: inout BinaryReader<D>, header: H264.NALUnitHeader) throws -> [H264.NALUnit<D.SubSequence>] {
-        let unitHeader = try FragmentationUnitHeader(from: &reader)
-        guard unitHeader.isStart != true || unitHeader.isEnd != true else {
-            throw Error.startAndEndBitIsSetInTheSamePackage
+extension H264 {
+    public struct FragmentationUnitTypeAParser<D: MutableDataProtocol> where D.Index == Int {
+        public enum Error: Swift.Error {
+            case startAndEndBitIsSetInTheSamePackage
+            case recivedFragmentBeforeStartFragment
+            case recivedFragmentWithDifferentHeader
+            case recivedFragmentEndBeforeStartFragment
         }
-        var naluHeader = header
-        naluHeader.type = unitHeader.type
-        let payload = try reader.readRemainingBytes()
-        if unitHeader.isStart {
-            if fragmentHeader != nil {
-                print("did recive new start fragment before finish last fragment")
+        @usableFromInline
+        internal var fragmentHeader: H264.NALUnitHeader?
+        @usableFromInline
+        internal var fragmentPayload: D.SubSequence?
+        @inlinable
+        public mutating func readPackage(from reader: inout BinaryReader<D>, header: H264.NALUnitHeader) throws -> [H264.NALUnit<D.SubSequence>] {
+            let unitHeader = try FragmentationUnitHeader(from: &reader)
+            guard unitHeader.isStart != true || unitHeader.isEnd != true else {
+                throw Error.startAndEndBitIsSetInTheSamePackage
             }
-            fragmentHeader = naluHeader
-            fragmentPayload = payload
-        } else {
-            guard fragmentPayload != nil else {
-                throw Error.recivedFragmentBeforeStartFragment
+            var naluHeader = header
+            naluHeader.type = unitHeader.type
+            let payload = try reader.readRemainingBytes()
+            if unitHeader.isStart {
+                if fragmentHeader != nil {
+                    print("did recive new start fragment before finish last fragment")
+                }
+                fragmentHeader = naluHeader
+                fragmentPayload = payload
+            } else {
+                guard fragmentPayload != nil else {
+                    throw Error.recivedFragmentBeforeStartFragment
+                }
+                fragmentPayload?.append(contentsOf: payload)
             }
-            fragmentPayload?.append(contentsOf: payload)
-        }
-        guard fragmentHeader == naluHeader else {
-            throw Error.recivedFragmentWithDifferentHeader
-        }
-        if unitHeader.isEnd {
-            defer {
-                fragmentHeader = nil
-                fragmentPayload = nil
+            guard fragmentHeader == naluHeader else {
+                throw Error.recivedFragmentWithDifferentHeader
             }
-            guard let header = fragmentHeader, let payload = fragmentPayload else {
-                throw Error.recivedFragmentEndBeforeStartFragment
+            if unitHeader.isEnd {
+                defer {
+                    fragmentHeader = nil
+                    fragmentPayload = nil
+                }
+                guard let header = fragmentHeader, let payload = fragmentPayload else {
+                    throw Error.recivedFragmentEndBeforeStartFragment
+                }
+                return [H264.NALUnit(header: header, payload: payload)]
+            } else {
+                return []
             }
-            return [H264.NALUnit(header: header, payload: payload)]
-        } else {
-            return []
         }
     }
 }
 
 struct While: Sequence {
     var `while`: () -> Bool
+    @usableFromInline
     func makeIterator() -> AnyIterator<Void> {
         .init {
             self.`while`() ? () : nil
         }
     }
+    @usableFromInline
     init(_ while: @escaping () -> Bool) {
         self.`while` = `while`
     }
@@ -332,8 +349,10 @@ extension H264 {
             case singleTimeAggreationPackageA_sizOfChildNALUToSmall
             case didRecieveUnsuportedPacketType(H264.NALUnitType)
         }
-        private var fragmentationUnitTypeAParser = FragmentationUnitTypeAParser<D>()
+        @usableFromInline
+        internal var fragmentationUnitTypeAParser = FragmentationUnitTypeAParser<D>()
         public init() {}
+        @inlinable
         public mutating func readPackage(from reader: inout BinaryReader<D>) throws -> [H264.NALUnit<D.SubSequence>] {
             let header = try H264.NALUnitHeader(from: &reader)
             if header.type.isSinglePacket {
@@ -348,7 +367,8 @@ extension H264 {
                 throw Error.didRecieveUnsuportedPacketType(header.type)
             }
         }
-        private func parseSingleTimeAggregationPacketTypeA(from reader: inout BinaryReader<D>) throws -> [H264.NALUnit<D.SubSequence>] {
+        @usableFromInline
+        internal func parseSingleTimeAggregationPacketTypeA(from reader: inout BinaryReader<D>) throws -> [H264.NALUnit<D.SubSequence>] {
             var isEmpty = reader.isEmpty
             return try While({ !isEmpty }).map {
                 defer { isEmpty = reader.isEmpty }
@@ -367,6 +387,7 @@ extension Collection {
     /// - Parameter maxLength: number of items in one slice. Must be greater than 0.
     /// - Returns: Slices with `maxLength` elements each. The last slice can contain less than `maxLength` elements.
     /// - Precondition: sliceLength > 0
+    @usableFromInline
     func split(maxLength: Int) -> [SubSequence] {
         precondition(maxLength > 0, "`sliceLength` must be greater than 0")
         var slices = [SubSequence]()
@@ -384,24 +405,28 @@ extension RTPPayloadType {
     static var h264 = Self(rawValue: 96)
 }
 
+@usableFromInline
 func sizeOfSingleTimeAggregationPacketA(naluSizeSum: Int, naluCount: Int) -> Int {
     // each NALU in a SingleTimeAggregationPacketA is prefixed with the size as an UInt16 of the next NALU.
     let naluPrefixSize = naluCount * 2
     return H264.NALUnitHeader.size + naluSizeSum + naluPrefixSize
 }
 
+@usableFromInline
 let sizeOfFragmentationUnitIndicatorAndHeader = 2
 
 extension H264 {
     public struct NALNonInterleavedPacketSerializer<D: MutableDataProtocol> where D.Index == Int {
         public var maxSizeOfNaluPacket: Int
-        var maxSizeOfNaluInSingleTimeAggregationPacketA: Int { maxSizeOfNaluPacket - sizeOfSingleTimeAggregationPacketA(naluSizeSum: 0, naluCount: 1) }
+        @usableFromInline
+        internal var maxSizeOfNaluInSingleTimeAggregationPacketA: Int { maxSizeOfNaluPacket - sizeOfSingleTimeAggregationPacketA(naluSizeSum: 0, naluCount: 1) }
         public var payloadType: RTPPayloadType = .h264
         public enum Error: Swift.Error {
         }
         public init(maxSizeOfNalu: Int) {
             self.maxSizeOfNaluPacket = maxSizeOfNalu
         }
+        @inlinable
         public func serialize(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
             var packets = [RTPPacket<D>]()
             var aggregatedNalus = [NALUnit<D>]()
@@ -445,7 +470,7 @@ extension H264 {
             }
             return packets
         }
-        
+        @usableFromInline
         func serializeAsSignelOrAggregatedPacket(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalus.count != 0, "can not send zero nalus as single packet or \(NALUnitType.singleTimeAggregationPacketA)")
             if nalus.count == 1, let nalu = nalus.first {
@@ -453,7 +478,7 @@ extension H264 {
             }
             return try serializeAsSingleTimeAggregationPacketTypeA(nalus, timestamp: timestamp, lastNALUsForGivenTimestamp: lastNALUsForGivenTimestamp)
         }
-        
+        @usableFromInline
         func serializeAsSinglePacket(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalu.size <= maxSizeOfNaluPacket)
             var writer = BinaryWriter<D>(capacity: nalu.size)
@@ -461,7 +486,7 @@ extension H264 {
             let payload = writer.bytes
             return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: isLastNALUForGivenTimestamp)
         }
-        
+        @usableFromInline
         func serializeAsSingleTimeAggregationPacketTypeA(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalus.count != 0, "can not send zero NALUs as \(NALUnitType.singleTimeAggregationPacketA)")
             assert(nalus.count != 1, "should not send single NALU as \(NALUnitType.singleTimeAggregationPacketA)")
@@ -480,7 +505,7 @@ extension H264 {
             let payload = writer.bytes
             return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: lastNALUsForGivenTimestamp)
         }
-        
+        @usableFromInline
         func serializeAsFragmentationUnitTypeA(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
             assert(nalu.size > maxSizeOfNaluPacket, "can not send NALU as Fragmentation Unit Type A because size(\(nalu.size)) of NALU is smaller than maxSizeOfNalu(\(maxSizeOfNaluPacket))")
             let nalus = nalu.payload.split(maxLength: maxSizeOfNaluPacket - sizeOfFragmentationUnitIndicatorAndHeader)

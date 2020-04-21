@@ -164,7 +164,7 @@ final class H264Tests: XCTestCase {
     }
     
     func testFragmentationUnitHeaderReadAndWrite() throws {
-        let header = FragmentationUnitHeader(
+        let header = H264.FragmentationUnitHeader(
             isStart: false,
             isEnd: true,
             reservedBit: false,
@@ -173,7 +173,7 @@ final class H264Tests: XCTestCase {
         try header.write(to: &writer)
         var reader = BinaryReader(bytes: writer.bytes)
         
-        let parsedHeader = try FragmentationUnitHeader(from: &reader)
+        let parsedHeader = try H264.FragmentationUnitHeader(from: &reader)
         XCTAssertEqual(header, parsedHeader)
         XCTAssertTrue(reader.isEmpty)
     }
@@ -252,7 +252,7 @@ final class H264Tests: XCTestCase {
             payloadType: .h264,
             payload: [
                 H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                H264.FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
                 0, 1, 2
             ],
             timestamp: 8, marker: false))
@@ -260,7 +260,7 @@ final class H264Tests: XCTestCase {
         payloadType: .h264,
         payload: [
             H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-            FragmentationUnitHeader(isStart: false, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            H264.FragmentationUnitHeader(isStart: false, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
             3, 4, 5
         ],
         timestamp: 8, marker: false))
@@ -268,7 +268,7 @@ final class H264Tests: XCTestCase {
         payloadType: .h264,
         payload: [
             H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-            FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            H264.FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
             6,
         ],
         timestamp: 8, marker: true))
@@ -282,7 +282,7 @@ final class H264Tests: XCTestCase {
             payloadType: .h264,
             payload: [
                 H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                H264.FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
                 0, 1, 2
             ],
             timestamp: 8, marker: false))
@@ -290,7 +290,7 @@ final class H264Tests: XCTestCase {
         payloadType: .h264,
         payload: [
             H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-            FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+            H264.FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
             3, 4, 5
         ],
         timestamp: 8, marker: true))
@@ -372,7 +372,7 @@ final class H264Tests: XCTestCase {
             payloadType: .h264,
             payload: [
                 H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-                FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                H264.FragmentationUnitHeader(isStart: true, isEnd: false, type: .instantaneousDecodingRefreshCodedSlice).byte,
                 0,1,2,3,4,5,6,7
             ],
             timestamp: 8, marker: false))
@@ -380,7 +380,7 @@ final class H264Tests: XCTestCase {
             payloadType: .h264,
             payload: [
                 H264.NALUnitHeader(referenceIndex: 2, type: H264.NALUnitType.fragmentationUnitA).byte,
-                FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
+                H264.FragmentationUnitHeader(isStart: false, isEnd: true, type: .instantaneousDecodingRefreshCodedSlice).byte,
                 8,9,10,
             ],
             timestamp: 8, marker: true))
