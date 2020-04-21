@@ -142,7 +142,7 @@ extension RTPHeader {
     func asNetworkData<D>(type: D.Type = D.self) throws -> D where D: MutableDataProtocol, D.Index == Int {
         var writer = BinaryWriter<D>(capacity: size)
         try write(to: &writer)
-        return writer.bytesStore
+        return writer.bytes
     }
 }
 
@@ -239,6 +239,6 @@ public struct RTPSerialzer{
         var writer = BinaryWriter<SerialzedData>(capacity: size)
         try header.write(to: &writer)
         writer.writeBytes(packet.payload)
-        return writer.bytesStore
+        return writer.bytes
     }
 }

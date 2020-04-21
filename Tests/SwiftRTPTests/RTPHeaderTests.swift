@@ -34,7 +34,7 @@ final class RTPHeaderTests: XCTestCase {
         
         try header.write(to: &bin)
         
-        XCTAssertEqual(bin.bytesStore,
+        XCTAssertEqual(bin.bytes,
             [0b10_0_0_0000, 0b0_1100000] +
             // |  | | |       | |
             // |  | | |       | Payload Type
@@ -53,7 +53,7 @@ final class RTPHeaderTests: XCTestCase {
         let header = RTPHeader(version: .v2, padding: false, extension: false, marker: true, payloadType: 10, sequenceNumber: 1234, timestamp: 4321, synchronisationSource: 10, contributingSources: [9, 5])
         var writer = BinaryWriter()
         try header.write(to: &writer)
-        var reader = BinaryReader(bytes: writer.bytesStore)
+        var reader = BinaryReader(bytes: writer.bytes)
         XCTAssertEqual(header, try RTPHeader(from: &reader))
     }
 

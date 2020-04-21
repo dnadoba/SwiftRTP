@@ -187,7 +187,7 @@ extension H264.NALUnitHeader {
     public var byte: UInt8 {
         var writer = BinaryWriter()
         try! self.write(to: &writer)
-        return writer.bytesStore[0]
+        return writer.bytes[0]
     }
 }
 
@@ -258,7 +258,7 @@ extension FragmentationUnitHeader {
     var byte: UInt8 {
         var writer = BinaryWriter()
         try! self.write(to: &writer)
-        return writer.bytesStore[0]
+        return writer.bytes[0]
     }
 }
 
@@ -458,7 +458,7 @@ extension H264 {
             assert(nalu.size <= maxSizeOfNaluPacket)
             var writer = BinaryWriter<D>(capacity: nalu.size)
             try nalu.write(to: &writer)
-            let payload = writer.bytesStore
+            let payload = writer.bytes
             return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: isLastNALUForGivenTimestamp)
         }
         
@@ -477,7 +477,7 @@ extension H264 {
                 writer.writeInt(UInt16(nalu.size))
                 try nalu.write(to: &writer)
             }
-            let payload = writer.bytesStore
+            let payload = writer.bytes
             return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: lastNALUsForGivenTimestamp)
         }
         
@@ -497,7 +497,7 @@ extension H264 {
                 try fragmentationIndicator.write(to: &writer)
                 try fragmentationHeader.write(to: &writer)
                 writer.writeBytes(payload)
-                let naluPayload = writer.bytesStore
+                let naluPayload = writer.bytes
                 return RTPPacket(payloadType: payloadType, payload: naluPayload, timestamp: timestamp, marker: isLastFragment && isLastNALUForGivenTimestamp)
             }
         }

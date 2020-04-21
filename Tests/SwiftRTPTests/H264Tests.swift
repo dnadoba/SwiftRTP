@@ -19,7 +19,7 @@ final class H264Tests: XCTestCase {
         for header in headers {
             var writer = BinaryWriter()
             try header.write(to: &writer)
-            var reader = BinaryReader(bytes: writer.bytesStore)
+            var reader = BinaryReader(bytes: writer.bytes)
             XCTAssertEqual(header, try H264.NALUnitHeader(from: &reader))
         }
     }
@@ -46,7 +46,7 @@ final class H264Tests: XCTestCase {
             type: .init(rawValue: 16)
         ).write(to: &writer)
         
-        XCTAssertEqual(writer.bytesStore, [0b0_10_10000])
+        XCTAssertEqual(writer.bytes, [0b0_10_10000])
         //                                   | |  |
         //                                   | |  type
         //                                   | reference index
@@ -61,7 +61,7 @@ final class H264Tests: XCTestCase {
         XCTAssertEqual(nalus.count, 1)
         let nonIDRSliceNalu = try XCTUnwrap(nalus.first)
         XCTAssertEqual(nonIDRSliceNalu.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 2, type: .nonInstantaneousDecodingRefreshCodedSlice))
-        XCTAssertEqual(Array(nonIDRSliceNalu.payload), BinaryReader(hexString: "000e109af27843c994c08257fffea99736b34608cb33ed103722b71cf53fbaa2e7878068f82025f25be6ae0c2f9edf8a63d9f7a273cb7f16cec49968496f56109df506dba2e6f310054e4d64e2a39fbc511c64c61574d8f3e0bb469b26f58be574b268b8cc1acb9590a4156f9bb3d8d649f07fdf9de360b8074add152a489058b739cb82314249203a0b0def7e57feec625e5691fadd65404e19c83af025ca299984d925501707180dc4c04b9fb071")?.bytesStore)
+        XCTAssertEqual(Array(nonIDRSliceNalu.payload), BinaryReader(hexString: "000e109af27843c994c08257fffea99736b34608cb33ed103722b71cf53fbaa2e7878068f82025f25be6ae0c2f9edf8a63d9f7a273cb7f16cec49968496f56109df506dba2e6f310054e4d64e2a39fbc511c64c61574d8f3e0bb469b26f58be574b268b8cc1acb9590a4156f9bb3d8d649f07fdf9de360b8074add152a489058b739cb82314249203a0b0def7e57feec625e5691fadd65404e19c83af025ca299984d925501707180dc4c04b9fb071")?.bytes)
     }
     
     func testSingleTimeAggregationPacket_1() throws {
@@ -90,11 +90,11 @@ final class H264Tests: XCTestCase {
         let pps = nalus[1]
         let sei = nalus[2]
         XCTAssertEqual(sps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .sequenceParameterSet))
-        XCTAssertEqual(Array(sps.payload), BinaryReader(hexString: "42c028da01e0089f97011000003e90000bb800f1832a")?.bytesStore)
+        XCTAssertEqual(Array(sps.payload), BinaryReader(hexString: "42c028da01e0089f97011000003e90000bb800f1832a")?.bytes)
         XCTAssertEqual(pps.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 3, type: .pictureParameterSet))
-        XCTAssertEqual(Array(pps.payload), BinaryReader(hexString: "ce3c80")?.bytesStore)
+        XCTAssertEqual(Array(pps.payload), BinaryReader(hexString: "ce3c80")?.bytes)
         XCTAssertEqual(sei.header, H264.NALUnitHeader(forbiddenZeroBit: false, referenceIndex: 0, type: .supplementalEnhancementInformation))
-        XCTAssertEqual(Array(sei.payload), BinaryReader(hexString: "05ffff60dc45e9bde6d948b7962cd820d923eeef78323634202d20636f7265203135352072323931372030613834643938202d20482e3236342f4d5045472d342041564320636f646563202d20436f70796c65667420323030332d32303138202d20687474703a2f2f7777772e766964656f6c616e2e6f72672f783236342e68746d6c202d206f7074696f6e733a2063616261633d30207265663d31206465626c6f636b3d303a303a3020616e616c7973653d303a30206d653d646961207375626d653d30207073793d31207073795f72643d312e30303a302e3030206d697865645f7265663d30206d655f72616e67653d3136206368726f6d615f6d653d31207472656c6c69733d31203878386463743d302063716d3d3020646561647a6f6e653d32312c313120666173745f70736b69703d31206368726f6d615f71705f6f66667365743d3020746872656164733d3132206c6f6f6b61686561645f746872656164733d3220736c696365645f746872656164733d30206e723d3020646563696d6174653d3120696e7465726c616365643d3020626c757261795f636f6d7061743d3020636f6e73747261696e65645f696e7472613d3020626672616d65733d3020776569676874703d30206b6579696e743d323530206b6579696e745f6d696e3d3233207363656e656375743d3020696e7472615f726566726573683d302072633d616272206d62747265653d3020626974726174653d3930302072617465746f6c3d312e302071636f6d703d302e36302071706d696e3d302071706d61783d3639207170737465703d342069705f726174696f3d312e34302061713d300080")?.bytesStore)
+        XCTAssertEqual(Array(sei.payload), BinaryReader(hexString: "05ffff60dc45e9bde6d948b7962cd820d923eeef78323634202d20636f7265203135352072323931372030613834643938202d20482e3236342f4d5045472d342041564320636f646563202d20436f70796c65667420323030332d32303138202d20687474703a2f2f7777772e766964656f6c616e2e6f72672f783236342e68746d6c202d206f7074696f6e733a2063616261633d30207265663d31206465626c6f636b3d303a303a3020616e616c7973653d303a30206d653d646961207375626d653d30207073793d31207073795f72643d312e30303a302e3030206d697865645f7265663d30206d655f72616e67653d3136206368726f6d615f6d653d31207472656c6c69733d31203878386463743d302063716d3d3020646561647a6f6e653d32312c313120666173745f70736b69703d31206368726f6d615f71705f6f66667365743d3020746872656164733d3132206c6f6f6b61686561645f746872656164733d3220736c696365645f746872656164733d30206e723d3020646563696d6174653d3120696e7465726c616365643d3020626c757261795f636f6d7061743d3020636f6e73747261696e65645f696e7472613d3020626672616d65733d3020776569676874703d30206b6579696e743d323530206b6579696e745f6d696e3d3233207363656e656375743d3020696e7472615f726566726573683d302072633d616272206d62747265653d3020626974726174653d3930302072617465746f6c3d312e302071636f6d703d302e36302071706d696e3d302071706d61783d3639207170737465703d342069705f726174696f3d312e34302061713d300080")?.bytes)
     }
     
     func testFragmentedPacketA() throws {
@@ -143,21 +143,21 @@ final class H264Tests: XCTestCase {
         
         let expectedNaluPayload = [
             // Packet 1 -- start
-            p1.bytesStore.dropFirst(2),
+            p1.bytes.dropFirst(2),
             // Packet 2
-            p2.bytesStore.dropFirst(2),
+            p2.bytes.dropFirst(2),
             // Packet 3
-            p3.bytesStore.dropFirst(2),
+            p3.bytes.dropFirst(2),
             // Packet 4
-            p4.bytesStore.dropFirst(2),
+            p4.bytes.dropFirst(2),
             // Packet 5
-            p5.bytesStore.dropFirst(2),
+            p5.bytes.dropFirst(2),
             // Packet 6
-            p6.bytesStore.dropFirst(2),
+            p6.bytes.dropFirst(2),
             // Packet 7
-            p7.bytesStore.dropFirst(2),
+            p7.bytes.dropFirst(2),
             // Packet 8 -- end
-            p8.bytesStore.dropFirst(2),
+            p8.bytes.dropFirst(2),
         ].flatMap({ $0 })
         
         XCTAssertEqual(Array(nalu.payload), expectedNaluPayload)
@@ -171,7 +171,7 @@ final class H264Tests: XCTestCase {
             type: .fragmentationUnitA)
         var writer = BinaryWriter()
         try header.write(to: &writer)
-        var reader = BinaryReader(bytes: writer.bytesStore)
+        var reader = BinaryReader(bytes: writer.bytes)
         
         let parsedHeader = try FragmentationUnitHeader(from: &reader)
         XCTAssertEqual(header, parsedHeader)
