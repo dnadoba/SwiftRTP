@@ -10,6 +10,7 @@ public struct RTPVersion: RawRepresentable, Hashable {
     public static let v2 = RTPVersion(rawValue: 2)
     
     public var rawValue: UInt8
+    @inlinable
     public init(rawValue: UInt8) {
         assert(rawValue & 0b0000_0011 == rawValue, "\(Self.self) is only allowed to use the first 2 bit's of rawValue.")
         self.rawValue = rawValue & 0b0000_0011
@@ -18,6 +19,7 @@ public struct RTPVersion: RawRepresentable, Hashable {
 
 public struct RTPPayloadType: RawRepresentable, Hashable {
     public var rawValue: UInt8
+    @inlinable
     public init(rawValue: UInt8) {
         assert(rawValue & 0b0111_1111 == rawValue, "\(Self.self) is only allowed to use the first 7 bit's of the rawValue.")
         self.rawValue = rawValue & 0b0111_1111
@@ -28,6 +30,7 @@ public struct RTPPayloadType: RawRepresentable, Hashable {
 /// The source of a stream of RTP packets, identified by a 32-bit numeric SSRC identifier carried in the RTP header so as not to be dependent upon the network address. All packets from a synchronization source form part of the same timing and sequence number space, so a receiver groups packets by synchronization source for playback. Examples of synchronization sources include the sender of a stream of packets derived from a signal source such as a microphone or a camera, or an RTP mixer (see below). A synchronization source may change its data format, e.g., audio encoding, over time. The SSRC identifier is a randomly chosen value meant to be globally unique within a particular RTP session (see Section 8). A participant need not use the same SSRC identifier for all the RTP sessions in a multimedia session; the binding of the SSRC identifiers is provided through RTCP (see Section 6.5.1). If a participant generates multiple streams in one RTP session, for example from separate video cameras, each must be identified as a different SSRC.
 public struct RTPSynchronizationSource: RawRepresentable, Hashable {
     public var rawValue: UInt32
+    @inlinable
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
@@ -37,6 +40,7 @@ public struct RTPSynchronizationSource: RawRepresentable, Hashable {
 /// A source of a stream of RTP packets that has contributed to the combined stream produced by an RTP mixer (see below). The mixer inserts a list of the SSRC identifiers of the sources that contributed to the generation of a particular packet into the RTP header of that packet. This list is called the CSRC list. An example application is audio conferencing where a mixer indicates all the talkers whose speech was combined to produce the outgoing packet, allowing the receiver to indicate the current talker, even though all the audio packets contain the same SSRC identifier (that of the mixer).
 public struct RTPContributingSource: RawRepresentable, Hashable {
     public var rawValue: UInt32
+    @inlinable
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
@@ -80,6 +84,7 @@ public struct RTPHeader: Equatable {
     /// - Note: 0 to 15 items
     public var contributingSources: [RTPContributingSource]?
     
+    @inlinable
     public init(
         version: RTPVersion = .v2,
         padding: Bool = false,
@@ -104,6 +109,7 @@ public struct RTPHeader: Equatable {
 }
 
 extension RTPHeader {
+    @inlinable
     public init<D>(from reader: inout BinaryReader<D>) throws where D: DataProtocol {
         self.version = RTPVersion(rawValue: try reader.readBits(2))
         self.padding = try reader.readBool()
@@ -125,6 +131,7 @@ extension RTPHeader {
 }
 
 extension RTPHeader {
+    @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol {
         writer.writeBits(from: version.rawValue, count: 2)
         writer.writeBool(padding)
@@ -139,7 +146,8 @@ extension RTPHeader {
             writer.writeInt(contributingSource.rawValue)
         }
     }
-    func asNetworkData<D>(type: D.Type = D.self) throws -> D where D: MutableDataProtocol, D.Index == Int {
+    @inlinable
+    public func asNetworkData<D>(type: D.Type = D.self) throws -> D where D: MutableDataProtocol, D.Index == Int {
         var writer = BinaryWriter<D>(capacity: size)
         try write(to: &writer)
         return writer.bytes
@@ -149,12 +157,14 @@ extension RTPHeader {
 
 
 extension RTPHeader {
-    static func size(contributingSourceCount: Int) -> Int{
+    @inlinable
+    public static func size(contributingSourceCount: Int) -> Int{
         12 + // fixed size of the header
         contributingSourceCount * 4 // size of the optional CSRC identifiers
     }
     /// size in bytes if written to the network
-    var size: Int {
+    @inlinable
+    public var size: Int {
         Self.size(contributingSourceCount: contributingSourceCount)
     }
 }
@@ -168,7 +178,8 @@ public struct RTPPacket<D: DataProtocol> {
     public var includesHeaderExtension: Bool = false
     public var payload: D
     
-    internal init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
+    @inlinable
+    public init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
         self.payloadType = payloadType
         self.timestamp = timestamp
         self.marker = marker
@@ -181,15 +192,20 @@ public struct RTPPacket<D: DataProtocol> {
 extension RTPPacket: Equatable where D: Equatable {}
 extension RTPPacket: Hashable where D: Hashable {}
 
-struct RTPSequenceNumberGenerator {
-    private var sequenceNumber: UInt16
-    init() {
+
+public struct RTPSequenceNumberGenerator {
+    @usableFromInline
+    internal var sequenceNumber: UInt16
+    @inlinable
+    public init() {
         self.init(inital: .random(in: UInt16.min...UInt16.max))
     }
-    init(inital sequenceNumber: UInt16) {
+    @inlinable
+    public init(inital sequenceNumber: UInt16) {
         self.sequenceNumber = sequenceNumber
     }
-    mutating func next() -> UInt16 {
+    @inlinable
+    public mutating func next() -> UInt16 {
         defer { sequenceNumber &+= 1 }
         return sequenceNumber
     }
@@ -200,7 +216,9 @@ public struct RTPSerialzer{
     public var version: RTPVersion = .v2
     public var synchronisationSource: RTPSynchronizationSource
     public var contributingSources: [RTPContributingSource] = []
-    private var sequenceNumberGenerator = RTPSequenceNumberGenerator()
+    @usableFromInline
+    internal var sequenceNumberGenerator = RTPSequenceNumberGenerator()
+    @inlinable
     public init(
         maxSizeOfPacket: Int,
         synchronisationSource: RTPSynchronizationSource,
@@ -215,10 +233,11 @@ public struct RTPSerialzer{
         self.sequenceNumberGenerator = initalSequenceNumber.map(RTPSequenceNumberGenerator.init(inital:)) ?? RTPSequenceNumberGenerator()
     }
     
+    @inlinable
     public var maxSizeOfPayload: Int {
         maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
     }
-    
+    @inlinable
     public mutating func serialze<PacketData, SerialzedData>(
         _ packet: RTPPacket<PacketData>,
         dataType: SerialzedData.Type = SerialzedData.self
