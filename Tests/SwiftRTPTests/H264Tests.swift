@@ -1,6 +1,6 @@
 import XCTest
-@testable import BinaryKit
-@testable import SwiftRTP
+import BinaryKit
+import SwiftRTP
 
 final class H264Tests: XCTestCase {
     func testNALUnitTypeName() {

@@ -1,6 +1,6 @@
 import XCTest
-@testable import BinaryKit
-@testable import SwiftRTP
+import BinaryKit
+import SwiftRTP
 
 final class RTPHeaderTests: XCTestCase {
     func testReadAndWriteHeaderFromAndToBinaryData() throws {
