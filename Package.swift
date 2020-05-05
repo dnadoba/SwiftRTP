@@ -24,5 +24,8 @@ let package = Package(
         .testTarget(
             name: "SwiftRTPTests",
             dependencies: ["SwiftRTP", "BinaryKit"]),
+        .testTarget(
+            name: "SwiftRTPPerformanceTests",
+            dependencies: ["SwiftRTP", "BinaryKit"]),
     ]
 )
