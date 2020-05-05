@@ -3,12 +3,20 @@ import BinaryKit
 import SwiftRTP
 
 func generateRandomBytes<D: MutableDataProtocol>(size: Int, type: D.Type = D.self) -> D where D.Index == Int {
-    var i: UInt8 = 0
-    return D((0..<size).map({ _ in
-        defer { i &+= 1 }
-        return i
-    }))
+    let stride = MemoryLayout<Int>.stride
+    let intCount = size/stride
+    var d = D.init(repeating: 0, count: size)
+    d.withContiguousMutableStorageIfAvailable { data in
+        data.baseAddress!.withMemoryRebound(to: Int.self, capacity: intCount) { data2 in
+            let intBuffer = UnsafeMutableBufferPointer(start: data2, count: intCount)
+            for i in intBuffer.indices {
+                intBuffer[i] = i
+            }
+        }
+    }
+    return d
 }
+
 func getTypicialInitalNalus<D: MutableDataProtocol>(
     idrSize: Int = 30 * 1000 * 1000, // 30 kb
     type: D.Type = D.self
@@ -26,7 +34,6 @@ func getTypicialInitalNalus<D: MutableDataProtocol>(
 }
 
 final class H264PerformanceTests: XCTestCase {
-    
     func testH264AndRTPserialzePerfomanceUsingData() throws {
         typealias DataType = Data
         var rtpSerialzer = RTPSerialzer(maxSizeOfPacket: 1500, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
