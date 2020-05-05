@@ -403,9 +403,8 @@ extension Collection {
     /// - Parameter maxLength: number of items in one slice. Must be greater than 0.
     /// - Returns: Slices with `maxLength` elements each. The last slice can contain less than `maxLength` elements.
     /// - Precondition: sliceLength > 0
-    @usableFromInline
-    @inline(__always)
-    func split(maxLength: Int) -> [SubSequence] {
+    @inlinable
+    public func split(maxLength: Int) -> [SubSequence] {
         precondition(maxLength > 0, "`sliceLength` must be greater than 0")
         var slices = [SubSequence]()
         slices.reserveCapacity(count/maxLength)
