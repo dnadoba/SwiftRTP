@@ -170,16 +170,16 @@ extension RTPHeader {
 }
 
 
-public struct RTPPacket<D: DataProtocol> {
+public struct RTPPacket<D: MutableDataProtocol> where D.Index == Int {
     public var payloadType: RTPPayloadType
     public var timestamp: UInt32
     public var marker: Bool
     public var includesPadding: Bool = false
     public var includesHeaderExtension: Bool = false
-    public var payload: D
+    public var payload: AnyWriteable<D>
     
     @inlinable
-    public init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
+    public init(payloadType: RTPPayloadType, payload: AnyWriteable<D>, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
         self.payloadType = payloadType
         self.timestamp = timestamp
         self.marker = marker
@@ -190,7 +190,6 @@ public struct RTPPacket<D: DataProtocol> {
 }
 
 extension RTPPacket: Equatable where D: Equatable {}
-extension RTPPacket: Hashable where D: Hashable {}
 
 
 public struct RTPSequenceNumberGenerator {
@@ -238,10 +237,9 @@ public struct RTPSerialzer{
         maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
     }
     @inlinable
-    public mutating func serialze<PacketData, SerialzedData>(
-        _ packet: RTPPacket<PacketData>,
-        dataType: SerialzedData.Type = SerialzedData.self
-    ) throws -> SerialzedData where PacketData: DataProtocol, SerialzedData: MutableDataProtocol, SerialzedData.Index == Int {
+    public mutating func serialze<D>(
+        _ packet: RTPPacket<D>
+    ) throws -> D where D: MutableDataProtocol, D.Index == Int {
         let header = RTPHeader(
             version: version,
             padding: packet.includesPadding,
@@ -253,11 +251,11 @@ public struct RTPSerialzer{
             synchronisationSource: synchronisationSource
         )
         
-        let size = header.size + packet.payload.count
+        let size = header.size + packet.payload.underestimatedSize
         assert(size <= maxSizeOfPacket)
-        var writer = BinaryWriter<SerialzedData>(capacity: size)
+        var writer = BinaryWriter<D>(capacity: size)
         try header.write(to: &writer)
-        writer.writeBytes(packet.payload)
+        try packet.payload.write(to: &writer)
         return writer.bytes
     }
 }

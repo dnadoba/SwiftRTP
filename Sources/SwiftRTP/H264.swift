@@ -431,6 +431,60 @@ func sizeOfSingleTimeAggregationPacketA(naluSizeSum: Int, naluCount: Int) -> Int
 @usableFromInline
 let sizeOfFragmentationUnitIndicatorAndHeader = 2
 
+public protocol Writable {
+    associatedtype MutableData: MutableDataProtocol where MutableData.Index == Int
+    var underestimatedSize: Int { get }
+    func write(to writer: inout BinaryWriter<MutableData>) throws
+}
+
+extension Writable {
+    public func toAnyWriteable() -> AnyWriteable<MutableData> {
+        .init(underestimatedCount: self.underestimatedSize) { writer in
+            try self.write(to: &writer)
+        }
+    }
+    public func bytes() throws -> MutableData {
+        var writer = BinaryWriter<MutableData>(capacity: underestimatedSize)
+        try write(to: &writer)
+        return writer.bytes
+    }
+}
+
+public struct AnyWriteable<D: MutableDataProtocol>: Writable where D.Index == Int  {
+    public typealias Handler = (inout BinaryWriter<D>) throws -> ()
+    @usableFromInline
+    internal var getUnderestimatedCount: () -> Int
+    @usableFromInline
+    internal var writeHandler: Handler
+    @inlinable
+    public init(underestimatedCount: @autoclosure @escaping () -> Int, _ writeHandler: @escaping Handler) {
+        self.getUnderestimatedCount = underestimatedCount
+        self.writeHandler = writeHandler
+    }
+    @inlinable
+    public var underestimatedSize: Int { getUnderestimatedCount() }
+    @inlinable
+    public func write(to writer: inout BinaryWriter<D>) throws {
+        try writeHandler(&writer)
+    }
+}
+
+extension AnyWriteable: Equatable where D: Equatable {
+    @inlinable
+    public static func == (lhs: AnyWriteable<D>, rhs: AnyWriteable<D>) -> Bool {
+        (try? lhs.bytes()) == (try? rhs.bytes())
+    }
+}
+
+extension AnyWriteable: ExpressibleByArrayLiteral where D == [UInt8] {
+    @inlinable
+    public init(arrayLiteral elements: UInt8...) {
+        self.init(underestimatedCount: elements.count) { (writer) in
+            writer.writeBytes(elements)
+        }
+    }
+}
+
 extension H264 {
     public struct NALNonInterleavedPacketSerializer<D: MutableDataProtocol> where D.Index == Int {
         public var maxSizeOfNaluPacket: Int
@@ -500,10 +554,10 @@ extension H264 {
         @inline(__always)
         public func serializeAsSinglePacket(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalu.size <= maxSizeOfNaluPacket)
-            var writer = BinaryWriter<D>(capacity: nalu.size)
-            try nalu.write(to: &writer)
-            let payload = writer.bytes
-            return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: isLastNALUForGivenTimestamp)
+            let payloadWriter = AnyWriteable<D>(underestimatedCount: nalu.size) { writer in
+                try nalu.write(to: &writer)
+            }
+            return RTPPacket(payloadType: payloadType, payload: payloadWriter, timestamp: timestamp, marker: isLastNALUForGivenTimestamp)
         }
         @inlinable
         @inline(__always)
@@ -516,21 +570,22 @@ extension H264 {
             let size = sizeOfSingleTimeAggregationPacketA(naluSizeSum: payloadSizes, naluCount: nalus.count)
             assert(size <= maxSizeOfNaluPacket)
             
-            var writer = BinaryWriter<D>(capacity: size)
-            try header.write(to: &writer)
-            for nalu in nalus {
-                writer.writeInt(UInt16(nalu.size))
-                try nalu.write(to: &writer)
+            
+            let payloadWriter = AnyWriteable<D>(underestimatedCount: size) { (writer) in
+                try header.write(to: &writer)
+                for nalu in nalus {
+                    writer.writeInt(UInt16(nalu.size))
+                    try nalu.write(to: &writer)
+                }
             }
-            let payload = writer.bytes
-            return RTPPacket(payloadType: payloadType, payload: payload, timestamp: timestamp, marker: lastNALUsForGivenTimestamp)
+            return RTPPacket(payloadType: payloadType, payload: payloadWriter, timestamp: timestamp, marker: lastNALUsForGivenTimestamp)
         }
         @inlinable
         @inline(__always)
         public func serializeAsFragmentationUnitTypeA(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
             assert(nalu.size > maxSizeOfNaluPacket, "can not send NALU as Fragmentation Unit Type A because size(\(nalu.size)) of NALU is smaller than maxSizeOfNalu(\(maxSizeOfNaluPacket))")
             let nalus = nalu.payload.split(maxLength: maxSizeOfNaluPacket - sizeOfFragmentationUnitIndicatorAndHeader)
-            return try nalus.enumerated().map { index, payload in
+            return nalus.enumerated().map { index, payload in
                 let isFirstFragment = index == nalus.startIndex
                 let isLastFragment = index == nalus.index(before: nalus.endIndex)
                 let fragmentationIndicator = H264.NALUnitHeader(
@@ -539,12 +594,13 @@ extension H264 {
                     type: .fragmentationUnitA)
                 
                 let fragmentationHeader = FragmentationUnitHeader(isStart: isFirstFragment, isEnd: isLastFragment, type: nalu.header.type)
-                var writer = BinaryWriter<D>(capacity: fragmentationIndicator.size + fragmentationHeader.size + payload.count)
-                try fragmentationIndicator.write(to: &writer)
-                try fragmentationHeader.write(to: &writer)
-                writer.writeBytes(payload)
-                let naluPayload = writer.bytes
-                return RTPPacket(payloadType: payloadType, payload: naluPayload, timestamp: timestamp, marker: isLastFragment && isLastNALUForGivenTimestamp)
+                let size = fragmentationIndicator.size + fragmentationHeader.size + payload.count
+                let payloadWriter = AnyWriteable<D>(underestimatedCount: size) { (writer) in
+                    try fragmentationIndicator.write(to: &writer)
+                    try fragmentationHeader.write(to: &writer)
+                    writer.writeBytes(payload)
+                }
+                return RTPPacket(payloadType: payloadType, payload: payloadWriter, timestamp: timestamp, marker: isLastFragment && isLastNALUForGivenTimestamp)
             }
         }
     }
