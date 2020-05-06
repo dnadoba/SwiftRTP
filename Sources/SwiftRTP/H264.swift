@@ -207,7 +207,7 @@ extension H264.NALUnitHeader {
     public var size: Int { 1 }
 }
 extension H264 {
-    public struct NALUnit<D: DataProtocol> where D.Index == Int {
+    public struct NALUnit<D>  {
         public var header: H264.NALUnitHeader
         public var payload: D
         @inlinable
@@ -218,7 +218,7 @@ extension H264 {
     }
 }
 
-extension H264.NALUnit {
+extension H264.NALUnit where D: DataProtocol, D.Index == Int{
     @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol, D.Index == Int {
         try header.write(to: &writer)
@@ -235,7 +235,7 @@ extension H264.NALUnit where D: MutableDataProtocol {
     }
 }
 
-extension H264.NALUnit {
+extension H264.NALUnit where D: DataProtocol {
     /// size in bytes if written to the network
     @inlinable
     public var size: Int { header.size + payload.count }
