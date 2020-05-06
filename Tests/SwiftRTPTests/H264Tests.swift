@@ -398,3 +398,4 @@ final class H264Tests: XCTestCase {
         XCTAssertEqual([Int]().split(maxLength: 4), [])
     }
 }
+ 

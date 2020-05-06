@@ -218,7 +218,7 @@ extension H264 {
     }
 }
 
-extension H264.NALUnit where D: DataProtocol, D.Index == Int{
+extension H264.NALUnit where D: DataProtocol {
     @inlinable
     public func write<D>(to writer: inout BinaryWriter<D>) throws where D: DataProtocol, D.Index == Int {
         try header.write(to: &writer)
@@ -498,9 +498,9 @@ extension H264 {
             self.maxSizeOfNaluPacket = maxSizeOfNalu
         }
         @inlinable
-        public func serialize(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
+        public func serialize<NALUData: DataProtocol>(_ nalus: [NALUnit<NALUData>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
             var packets = [RTPPacket<D>]()
-            var aggregatedNalus = [NALUnit<D>]()
+            var aggregatedNalus = [NALUnit<NALUData>]()
             // This is the sum of all nalus currently aggregated. this does not include the cost of the SingleTimeAggregationPacketA metadata(e.g. header and NALU prefix size)
             var aggregatedNaluSize: Int { aggregatedNalus.map(\.size).reduce(0, +) }
             for (index, nalu) in nalus.enumerated() {
@@ -543,7 +543,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSignelOrAggregatedPacket(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSignelOrAggregatedPacket<NALUData: DataProtocol>(_ nalus: [NALUnit<NALUData>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalus.count != 0, "can not send zero nalus as single packet or \(NALUnitType.singleTimeAggregationPacketA)")
             if nalus.count == 1, let nalu = nalus.first {
                 return try serializeAsSinglePacket(nalu, timestamp: timestamp, isLastNALUForGivenTimestamp: lastNALUsForGivenTimestamp)
@@ -552,7 +552,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSinglePacket(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSinglePacket<NALUData: DataProtocol>(_ nalu: NALUnit<NALUData>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalu.size <= maxSizeOfNaluPacket)
             let payloadWriter = AnyWriteable<D>(underestimatedCount: nalu.size) { writer in
                 try nalu.write(to: &writer)
@@ -561,7 +561,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSingleTimeAggregationPacketTypeA(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSingleTimeAggregationPacketTypeA<NALUData: DataProtocol>(_ nalus: [NALUnit<NALUData>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
             assert(nalus.count != 0, "can not send zero NALUs as \(NALUnitType.singleTimeAggregationPacketA)")
             assert(nalus.count != 1, "should not send single NALU as \(NALUnitType.singleTimeAggregationPacketA)")
             
@@ -582,7 +582,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsFragmentationUnitTypeA(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
+        public func serializeAsFragmentationUnitTypeA<NALUData: DataProtocol>(_ nalu: NALUnit<NALUData>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
             assert(nalu.size > maxSizeOfNaluPacket, "can not send NALU as Fragmentation Unit Type A because size(\(nalu.size)) of NALU is smaller than maxSizeOfNalu(\(maxSizeOfNaluPacket))")
             let nalus = nalu.payload.split(maxLength: maxSizeOfNaluPacket - sizeOfFragmentationUnitIndicatorAndHeader)
             return nalus.enumerated().map { index, payload in
