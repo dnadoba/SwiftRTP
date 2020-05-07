@@ -450,48 +450,6 @@ extension Writable {
     }
 }
 
-protocol ConcatableData {
-    mutating func concat(_ other: Self)
-}
-
-extension DispatchData: ConcatableData {
-    mutating func concat(_ other: Self) { append(other) }
-}
-extension Data: ConcatableData {
-    mutating func concat(_ other: Self) { append(other) }
-}
-extension Array: ConcatableData where Element == UInt8 {
-    mutating func concat(_ other: Self) { append(contentsOf: other) }
-}
-
-protocol ReferenceInitalizeableData {
-    init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ())
-}
-
-extension DispatchData: ReferenceInitalizeableData {
-    init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
-        self.init(bytesNoCopy: referenceOrCopy, deallocator: .custom(nil, deallocator))
-    }
-}
-extension Data {
-    init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
-        guard let pointer = referenceOrCopy.baseAddress else {
-            self.init()
-            deallocator()
-            return
-        }
-        self.init(bytes: pointer, count: referenceOrCopy.count)
-        deallocator()
-    }
-}
-
-extension Array: ReferenceInitalizeableData where Element == UInt8 {
-    init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
-        self.init(referenceOrCopy)
-        deallocator()
-    }
-}
-
 
 public struct AnyWriteable<D: MutableDataProtocol>: Writable where D.Index == Int  {
     public typealias Handler = (inout BinaryWriter<D>) throws -> ()
