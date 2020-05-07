@@ -28,6 +28,24 @@ public protocol ReferenceInitalizeableData {
     init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ())
 }
 
+extension ReferenceInitalizeableData {
+    @inlinable
+    public init(referenceOrCopy: Slice<UnsafeRawBufferPointer>, deallocator: @escaping () -> ()) {
+        self.init(referenceOrCopy: UnsafeRawBufferPointer(rebasing: referenceOrCopy), deallocator: deallocator)
+    }
+}
+
+extension ReferenceInitalizeableData {
+    @inlinable
+    public init(referenceOrCopy: UnsafeBufferPointer<UInt8>, deallocator: @escaping () -> ()) {
+        self.init(referenceOrCopy: UnsafeRawBufferPointer(referenceOrCopy), deallocator: deallocator)
+    }
+    @inlinable
+    public init(referenceOrCopy: Slice<UnsafeBufferPointer<UInt8>>, deallocator: @escaping () -> ()) {
+        self.init(referenceOrCopy: UnsafeBufferPointer<UInt8>(rebasing: referenceOrCopy), deallocator: deallocator)
+    }
+}
+
 extension DispatchData: ReferenceInitalizeableData {
     @inlinable
     public init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
