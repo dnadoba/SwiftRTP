@@ -7,14 +7,32 @@
 
 import Foundation
 
-public protocol ConcatableData {
+public protocol ConcatableData: DataProtocol {
     mutating func concat(_ other: Self)
+    mutating func concat(_ other: SubSequence)
 }
 
 extension DispatchData: ConcatableData {
     @inlinable
     public mutating func concat(_ other: Self) { append(other) }
+    @inlinable
+    public mutating func concat(_ other: SubSequence) {
+        self.append(DispatchData(slice: other))
+    }
 }
+extension DispatchData {
+    @inlinable
+    init(slice: Slice<Self>) {
+//        let data = slice.withContiguousStorageIfAvailable { buffer in
+//            DispatchData(bytesNoCopy: UnsafeRawBufferPointer(buffer), deallocator: .custom(nil, { [slice] in
+//                _ = slice
+//            }))
+//        }
+//        self = data ?? slice.base.subdata(in: slice.startIndex..<slice.endIndex)
+        self = slice.base.subdata(in: slice.startIndex..<slice.endIndex)
+    }
+}
+
 extension Data: ConcatableData {
     @inlinable
     public mutating func concat(_ other: Self) { append(other) }
@@ -22,10 +40,13 @@ extension Data: ConcatableData {
 extension Array: ConcatableData where Element == UInt8 {
     @inlinable
     public mutating func concat(_ other: Self) { append(contentsOf: other) }
+    @inlinable
+    public mutating func concat(_ other: SubSequence) { append(contentsOf: other) }
 }
 
 public protocol ReferenceInitalizeableData {
     init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ())
+    init(copyBytes: UnsafeRawBufferPointer)
 }
 
 extension ReferenceInitalizeableData {
@@ -51,8 +72,12 @@ extension DispatchData: ReferenceInitalizeableData {
     public init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
         self.init(bytesNoCopy: referenceOrCopy, deallocator: .custom(nil, deallocator))
     }
+    @inlinable
+    public init(copyBytes: UnsafeRawBufferPointer) {
+        self.init(bytes: copyBytes)
+    }
 }
-extension Data {
+extension Data: ReferenceInitalizeableData {
     @inlinable
     public init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
         guard let pointer = referenceOrCopy.baseAddress else {
@@ -63,6 +88,10 @@ extension Data {
         self.init(bytes: pointer, count: referenceOrCopy.count)
         deallocator()
     }
+    @inlinable
+    public init(copyBytes: UnsafeRawBufferPointer) {
+        self.init(buffer: copyBytes.bindMemory(to: UInt8.self))
+    }
 }
 
 extension Array: ReferenceInitalizeableData where Element == UInt8 {
@@ -70,5 +99,9 @@ extension Array: ReferenceInitalizeableData where Element == UInt8 {
     public init(referenceOrCopy: UnsafeRawBufferPointer, deallocator: @escaping () -> ()) {
         self.init(referenceOrCopy)
         deallocator()
+    }
+    @inlinable
+    public init(copyBytes: UnsafeRawBufferPointer) {
+        self.init(copyBytes.bindMemory(to: UInt8.self))
     }
 }

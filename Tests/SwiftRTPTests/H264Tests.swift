@@ -395,7 +395,7 @@ final class H264Tests: XCTestCase {
         XCTAssertEqual([1,2,3].split(maxLength: 4), [[1,2,3]])
         XCTAssertEqual([1,2].split(maxLength: 4), [[1,2]])
         XCTAssertEqual([1].split(maxLength: 4), [[1]])
-        XCTAssertEqual([Int]().split(maxLength: 4), [])
+        XCTAssertEqual([UInt8]().split(maxLength: 4), [])
     }
 }
  

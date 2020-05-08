@@ -170,16 +170,16 @@ extension RTPHeader {
 }
 
 
-public struct RTPPacket<D: MutableDataProtocol> where D.Index == Int {
+public struct RTPPacket<D: DataProtocol> where D.Index == Int {
     public var payloadType: RTPPayloadType
     public var timestamp: UInt32
     public var marker: Bool
     public var includesPadding: Bool = false
     public var includesHeaderExtension: Bool = false
-    public var payload: AnyWriteable<D>
+    public var payload: D
     
     @inlinable
-    public init(payloadType: RTPPayloadType, payload: AnyWriteable<D>, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
+    public init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
         self.payloadType = payloadType
         self.timestamp = timestamp
         self.marker = marker
@@ -211,6 +211,7 @@ public struct RTPSequenceNumberGenerator {
 }
 
 public struct RTPSerialzer{
+    public typealias TemporaryDataType = [UInt8]
     public var maxSizeOfPacket: Int
     public var version: RTPVersion = .v2
     public var synchronisationSource: RTPSynchronizationSource
@@ -239,7 +240,7 @@ public struct RTPSerialzer{
     @inlinable
     public mutating func serialze<D>(
         _ packet: RTPPacket<D>
-    ) throws -> D where D: MutableDataProtocol, D.Index == Int {
+    ) throws -> D where D.Index == Int, D: ReferenceInitalizeableData, D: ConcatableData {
         let header = RTPHeader(
             version: version,
             padding: packet.includesPadding,
@@ -251,11 +252,8 @@ public struct RTPSerialzer{
             synchronisationSource: synchronisationSource
         )
         
-        let size = header.size + packet.payload.underestimatedSize
-        assert(size <= maxSizeOfPacket)
-        var writer = BinaryWriter<D>(capacity: size)
-        try header.write(to: &writer)
-        try packet.payload.write(to: &writer)
-        return writer.bytes
+        var data = D(copyBytes: try header.bytes(type: TemporaryDataType.self))
+        data.concat(packet.payload)
+        return data
     }
 }

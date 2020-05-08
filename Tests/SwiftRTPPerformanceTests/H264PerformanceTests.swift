@@ -2,25 +2,22 @@ import XCTest
 import BinaryKit
 import SwiftRTP
 
-func generateRandomBytes<D: MutableDataProtocol>(size: Int, type: D.Type = D.self) -> D where D.Index == Int {
+func generateRandomBytes<D: ReferenceInitalizeableData>(size: Int, type: D.Type = D.self) -> D {
     let stride = MemoryLayout<Int>.stride
-    let intCount = size/stride
-    var d = D.init(repeating: 0, count: size)
-    d.withContiguousMutableStorageIfAvailable { data in
-        data.baseAddress!.withMemoryRebound(to: Int.self, capacity: intCount) { data2 in
-            let intBuffer = UnsafeMutableBufferPointer(start: data2, count: intCount)
-            for i in intBuffer.indices {
-                intBuffer[i] = i
-            }
+    var d = Array<UInt8>(repeating: 0, count: size)
+    d.withUnsafeMutableBytes { data in
+        let intBuffer = data.bindMemory(to: Int.self)
+        for i in intBuffer.indices {
+            intBuffer[i] = i
         }
     }
-    return d
+    return D.init(copyBytes: d)
 }
 
-func getTypicialInitalNalus<D: MutableDataProtocol>(
-    idrSize: Int = 300 * 1000, // 300 kb
+func getTypicialInitalNalus<D: ReferenceInitalizeableData>(
+    idrSize: Int = 3000 * 1000, // 3000 kb
     type: D.Type = D.self
-) -> [H264.NALUnit<D>] where D.Index == Int {
+) -> [H264.NALUnit<D>] {
     let pps = H264.NALUnit(
         header: .init(referenceIndex: 2, type: .pictureParameterSet),
         payload: generateRandomBytes(size: 3, type: type))
@@ -70,8 +67,8 @@ final class H264PerformanceTests: XCTestCase {
             }
         }
     }
-    func testH264AndRTPserialzePerfomanceUsingUInt8ContiguousArray() throws {
-        typealias DataType = ContiguousArray<UInt8>
+    func testH264AndRTPserialzePerfomanceUsingDispatchData() throws {
+        typealias DataType = DispatchData
         var rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
         let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
@@ -102,8 +99,8 @@ final class H264PerformanceTests: XCTestCase {
             }
         }
     }
-    func testH264SerialzePerfomanceUsingUInt8ContiguousArray() throws {
-        typealias DataType = ContiguousArray<UInt8>
+    func testH264SerialzePerfomanceUsingUInt8Array() throws {
+        typealias DataType = Array<UInt8>
         let rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
         let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
@@ -116,8 +113,8 @@ final class H264PerformanceTests: XCTestCase {
             }
         }
     }
-    func testH264SerialzePerfomanceUsingUInt8Array() throws {
-        typealias DataType = Array<UInt8>
+    func testH264SerialzePerfomanceUsingDispatchData() throws {
+        typealias DataType = DispatchData
         let rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
         let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
