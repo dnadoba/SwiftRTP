@@ -3,7 +3,6 @@ import BinaryKit
 import SwiftRTP
 
 func generateRandomBytes<D: ReferenceInitalizeableData>(size: Int, type: D.Type = D.self) -> D {
-    let stride = MemoryLayout<Int>.stride
     var d = Array<UInt8>(repeating: 0, count: size)
     d.withUnsafeMutableBytes { data in
         let intBuffer = data.bindMemory(to: Int.self)
