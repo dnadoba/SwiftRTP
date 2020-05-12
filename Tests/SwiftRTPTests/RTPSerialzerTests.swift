@@ -14,7 +14,7 @@ final class RTPSerialzerTests: XCTestCase {
     }
     func testSerializer() throws {
         var serializer = RTPSerialzer.init(maxSizeOfPacket: 100, synchronisationSource: 1, initalSequenceNumber: 9)
-        let packet: [UInt8] = try serializer.serialze(RTPPacket(payloadType: 2, payload: [3, 4], timestamp: 6, marker: true))
+        let packet: [UInt8] = try serializer.serialze(RTPPacket<[UInt8], [UInt8]>(payloadType: 2, payload: [3, 4], timestamp: 6, marker: true))
         XCTAssertEqual(
             packet,
             try RTPHeader(

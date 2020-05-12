@@ -463,6 +463,52 @@ extension Writable {
     }
 }
 
+extension Writable {
+    public func toAnyWriteable<D: MutableDataProtocol>() -> AnyWriteable<D> where D.Index == Int {
+        .init(size: self.size) { writer in
+            try self.write(to: &writer)
+        }
+    }
+}
+
+public struct AnyWriteable<D: MutableDataProtocol> where D.Index == Int  {
+    public typealias Handler = (inout BinaryWriter<D>) throws -> ()
+    public var size: Int
+    @usableFromInline
+    internal var writeHandler: Handler
+    @inlinable
+    public init(size: Int, _ writeHandler: @escaping Handler) {
+        self.size = size
+        self.writeHandler = writeHandler
+    }
+    @inlinable
+    public func write(to writer: inout BinaryWriter<D>) throws {
+        try writeHandler(&writer)
+    }
+    @inlinable
+    public func bytes() throws -> D {
+        var writer = BinaryWriter<D>(capacity: size)
+        try writeHandler(&writer)
+        return writer.bytes
+    }
+}
+
+extension AnyWriteable: Equatable where D: Equatable {
+    @inlinable
+    public static func == (lhs: AnyWriteable<D>, rhs: AnyWriteable<D>) -> Bool {
+        (try? lhs.bytes()) == (try? rhs.bytes())
+    }
+}
+
+extension AnyWriteable: ExpressibleByArrayLiteral where D == [UInt8] {
+    @inlinable
+    public init(arrayLiteral elements: UInt8...) {
+        self.init(size: elements.count) { (writer) in
+            writer.writeBytes(elements)
+        }
+    }
+}
+
 extension H264.FragmentationUnitHeader: Writable {}
 extension H264.NALUnitHeader: Writable {}
 extension RTPHeader: Writable {}
@@ -478,7 +524,7 @@ extension ReferenceInitalizeableData {
 }
 
 extension H264 {
-    public struct NALNonInterleavedPacketSerializer<D> where D: DataProtocol, D: ReferenceInitalizeableData, D: ConcatableData, D.Index == Int {
+    public struct NALNonInterleavedPacketSerializer<HeaderD: MutableDataProtocol & ContiguousBytes, D> where HeaderD.Index == Int, D: ReferenceInitalizeableData, D: ConcatableData, D.Index == Int {
         public typealias TemporaryDataType = [UInt8]
         public var maxSizeOfNaluPacket: Int
         @usableFromInline
@@ -491,8 +537,8 @@ extension H264 {
             self.maxSizeOfNaluPacket = maxSizeOfNalu
         }
         @inlinable
-        public func serialize(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
-            var packets = [RTPPacket<D>]()
+        public func serialize(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> [RTPPacket<HeaderD, D>] {
+            var packets = [RTPPacket<HeaderD, D>]()
             var aggregatedNalus = [NALUnit<D>]()
             // This is the sum of all nalus currently aggregated. this does not include the cost of the SingleTimeAggregationPacketA metadata(e.g. header and NALU prefix size)
             var aggregatedNaluSize: Int { aggregatedNalus.map(\.size).reduce(0, +) }
@@ -536,7 +582,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSignelOrAggregatedPacket(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSignelOrAggregatedPacket(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<HeaderD, D> {
             assert(nalus.count != 0, "can not send zero nalus as single packet or \(NALUnitType.singleTimeAggregationPacketA)")
             if nalus.count == 1, let nalu = nalus.first {
                 return try serializeAsSinglePacket(nalu, timestamp: timestamp, isLastNALUForGivenTimestamp: lastNALUsForGivenTimestamp)
@@ -545,7 +591,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSinglePacket(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSinglePacket(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> RTPPacket<HeaderD, D> {
             assert(nalu.size <= maxSizeOfNaluPacket)
             let header = try nalu.header.bytes(type: TemporaryDataType.self)
             var data = D(copyBytes: header)
@@ -554,7 +600,7 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsSingleTimeAggregationPacketTypeA(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<D> {
+        public func serializeAsSingleTimeAggregationPacketTypeA(_ nalus: [NALUnit<D>], timestamp: UInt32, lastNALUsForGivenTimestamp: Bool) throws -> RTPPacket<HeaderD, D> {
             assert(nalus.count != 0, "can not send zero NALUs as \(NALUnitType.singleTimeAggregationPacketA)")
             assert(nalus.count != 1, "should not send single NALU as \(NALUnitType.singleTimeAggregationPacketA)")
             
@@ -577,10 +623,10 @@ extension H264 {
         }
         @inlinable
         @inline(__always)
-        public func serializeAsFragmentationUnitTypeA(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<D>] {
+        public func serializeAsFragmentationUnitTypeA(_ nalu: NALUnit<D>, timestamp: UInt32, isLastNALUForGivenTimestamp: Bool) throws -> [RTPPacket<HeaderD, D>] {
             assert(nalu.size > maxSizeOfNaluPacket, "can not send NALU as Fragmentation Unit Type A because size(\(nalu.size)) of NALU is smaller than maxSizeOfNalu(\(maxSizeOfNaluPacket))")
             let nalus = nalu.payload.split(maxLength: maxSizeOfNaluPacket - sizeOfFragmentationUnitIndicatorAndHeader)
-            return try nalus.enumerated().map { index, payload in
+            return nalus.enumerated().map { index, payload in
                 let isFirstFragment = index == nalus.startIndex
                 let isLastFragment = index == nalus.index(before: nalus.endIndex)
                 let fragmentationIndicator = H264.NALUnitHeader(
@@ -590,14 +636,17 @@ extension H264 {
                 
                 let fragmentationHeader = FragmentationUnitHeader(isStart: isFirstFragment, isEnd: isLastFragment, type: nalu.header.type)
                 
-                var writer = BinaryWriter<TemporaryDataType>(capacity: fragmentationIndicator.size + fragmentationHeader.size)
-                try fragmentationIndicator.write(to: &writer)
-                try fragmentationHeader.write(to: &writer)
-                var data = D(copyBytes: writer.bytes)
+                let header = AnyWriteable<HeaderD>(size: fragmentationIndicator.size + fragmentationHeader.size) { writer in
+                    try fragmentationIndicator.write(to: &writer)
+                    try fragmentationHeader.write(to: &writer)
+                    if !D.canConcatDataWithoutReallocation {
+                        writer.writeBytes(payload)
+                    }
+                }
                 
-                data.concat(payload)
                 
-                return RTPPacket(payloadType: payloadType, payload: data, timestamp: timestamp, marker: isLastFragment && isLastNALUForGivenTimestamp)
+                
+                return RTPPacket(payloadType: payloadType, header: header, payload: D.canConcatDataWithoutReallocation ? D(payload) : nil, timestamp: timestamp, marker: isLastFragment && isLastNALUForGivenTimestamp)
             }
         }
     }

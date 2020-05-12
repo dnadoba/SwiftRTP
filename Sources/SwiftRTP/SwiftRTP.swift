@@ -170,26 +170,46 @@ extension RTPHeader {
 }
 
 
-public struct RTPPacket<D: DataProtocol> where D.Index == Int {
+public struct RTPPacket<D: MutableDataProtocol, Payload: DataProtocol> where D.Index == Int {
     public var payloadType: RTPPayloadType
     public var timestamp: UInt32
     public var marker: Bool
     public var includesPadding: Bool = false
     public var includesHeaderExtension: Bool = false
-    public var payload: D
+    public var header: AnyWriteable<D>?
+    public var payload: Payload?
     
     @inlinable
-    public init(payloadType: RTPPayloadType, payload: D, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
+    public init(payloadType: RTPPayloadType, header: AnyWriteable<D>? = nil, payload: Payload? = nil, timestamp: UInt32, marker: Bool, includesPadding: Bool = false, includesHeaderExtension: Bool = false) {
         self.payloadType = payloadType
         self.timestamp = timestamp
         self.marker = marker
         self.includesPadding = includesPadding
         self.includesHeaderExtension = includesHeaderExtension
+        self.header = header
         self.payload = payload
     }
+    
 }
 
-extension RTPPacket: Equatable where D: Equatable {}
+extension RTPPacket: Equatable where D: Equatable, Payload: Equatable {
+    private var headerAndPayload: D {
+        var writer = BinaryWriter<D>(capacity: (header?.size ?? 0) + (payload?.count ?? 0))
+        try? header?.write(to: &writer)
+        if let payload = payload {
+            writer.writeBytes(payload)
+        }
+        return writer.bytes
+    }
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.payloadType == rhs.payloadType &&
+            lhs.timestamp == rhs.timestamp &&
+            lhs.marker == rhs.marker &&
+            lhs.includesPadding == rhs.includesPadding &&
+            lhs.includesHeaderExtension == rhs.includesHeaderExtension &&
+            lhs.headerAndPayload == rhs.headerAndPayload
+    }
+}
 
 
 public struct RTPSequenceNumberGenerator {
@@ -238,9 +258,9 @@ public struct RTPSerialzer{
         maxSizeOfPacket - RTPHeader.size(contributingSourceCount: contributingSources.count)
     }
     @inlinable
-    public mutating func serialze<D>(
-        _ packet: RTPPacket<D>
-    ) throws -> D where D.Index == Int, D: ReferenceInitalizeableData, D: ConcatableData {
+    public mutating func serialze<D, Payload>(
+        _ packet: RTPPacket<D, Payload>
+    ) throws -> Payload where D: MutableDataProtocol, D: ContiguousBytes, D.Index == Int, Payload: ReferenceInitalizeableData, Payload: ConcatableData {
         let header = RTPHeader(
             version: version,
             padding: packet.includesPadding,
@@ -251,9 +271,22 @@ public struct RTPSerialzer{
             timestamp: packet.timestamp,
             synchronisationSource: synchronisationSource
         )
+        var headerWriter = BinaryWriter<D>.init(capacity: header.size + (packet.header?.size ?? 0))
+        try header.write(to: &headerWriter)
+        try packet.header?.write(to: &headerWriter)
         
-        var data = D(copyBytes: try header.bytes(type: TemporaryDataType.self))
-        data.concat(packet.payload)
-        return data
+        
+        if let payload = packet.payload {
+            var data = Payload(copyBytes: headerWriter.bytes)
+            data.concat(payload)
+            return data
+        } else {
+            if D.self == Payload.self,
+                let noCopyData = headerWriter.bytes as? Payload {
+                return noCopyData
+            } else { 
+                return Payload(copyBytes: headerWriter.bytes)
+            }
+        }
     }
 }

@@ -180,7 +180,7 @@ final class H264Tests: XCTestCase {
     
     // MARK: - NALNonInterleavedPacketSerializer
     func testSinglePacketSerialization() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 100)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 100)
         let ppsNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .pictureParameterSet), payload: [0, 1, 2])
         
         XCTAssertEqual(
@@ -204,7 +204,7 @@ final class H264Tests: XCTestCase {
                 timestamp: .max, marker: false)])
     }
     func testSerializationOfSingleTimeAggreationPacketTypeA() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 100)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 100)
         let ppsNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 2, type: .pictureParameterSet), payload: [0, 1, 2])
         let spsNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .sequenceParameterSet), payload: [3, 4, 5, 6, 7])
         let nalus = [ppsNalu, spsNalu]
@@ -244,7 +244,7 @@ final class H264Tests: XCTestCase {
     }
     
     func testSerializationOfFrgmentationUnitTypeAWith3Fragments() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 5)
         let idrNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5,6])
         let packets = try serializer.serialize([idrNalu], timestamp: 8, lastNALUsForGivenTimestamp: true)
         XCTAssertEqual(packets.count, 3)
@@ -274,7 +274,7 @@ final class H264Tests: XCTestCase {
         timestamp: 8, marker: true))
     }
     func testSerializationOfFrgmentationUnitTypeAWith2Fragments() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 5)
         let idrNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5])
         let packets = try serializer.serialize([idrNalu], timestamp: 8, lastNALUsForGivenTimestamp: true)
         XCTAssertEqual(packets.count, 2)
@@ -296,7 +296,7 @@ final class H264Tests: XCTestCase {
         timestamp: 8, marker: true))
     }
     func testSerializationOfTwoNALUsThatAreToBigToFitIntoASinglePackage() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 5)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 5)
         let nIDRNalu1 = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [0])
         let nIDRNalu2 = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [4,5,6,7])
         let packets = try serializer.serialize([nIDRNalu1, nIDRNalu2], timestamp: 9999, lastNALUsForGivenTimestamp: true)
@@ -318,7 +318,7 @@ final class H264Tests: XCTestCase {
     }
     
     func testSerializationOf_SinglePacket_And_STAP() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 10)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 10)
         let nIDRNalu1 = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3])
         let nIDRNalu2 = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [3])
         let nIDRNalu3 = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .nonInstantaneousDecodingRefreshCodedSlice), payload: [4])
@@ -348,7 +348,7 @@ final class H264Tests: XCTestCase {
             timestamp: 9999, marker: true))
     }
     func testSerializationOf_SinglePacket_and_FUA_with2Fragments() throws {
-        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8]>(maxSizeOfNalu: 10)
+        let serializer = H264.NALNonInterleavedPacketSerializer<[UInt8], [UInt8]>(maxSizeOfNalu: 10)
         let ppsNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 2, type: .pictureParameterSet), payload: [0])
         let spsNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 1, type: .sequenceParameterSet), payload: [1, 2])
         let idrNalu = H264.NALUnit<[UInt8]>(header: .init(referenceIndex: 2, type: .instantaneousDecodingRefreshCodedSlice), payload: [0,1,2,3,4,5,6,7,8,9,10])

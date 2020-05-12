@@ -29,13 +29,15 @@ func getTypicialInitalNalus<D: ReferenceInitalizeableData>(
     return [pps, sps, idr]
 }
 
+typealias IntermediateDataType = [UInt8]
+
 final class H264PerformanceTests: XCTestCase {
     let maxDatagramSize = 1500
     // MARK: - H264 and RTP Serialze Perfomance
     func testH264AndRTPserialzePerfomanceUsingData() throws {
         typealias DataType = Data
         var rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {
@@ -52,7 +54,7 @@ final class H264PerformanceTests: XCTestCase {
     func testH264AndRTPserialzePerfomanceUsingUInt8Array() throws {
         typealias DataType = Array<UInt8>
         var rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {
@@ -69,7 +71,7 @@ final class H264PerformanceTests: XCTestCase {
     func testH264AndRTPserialzePerfomanceUsingDispatchData() throws {
         typealias DataType = DispatchData
         var rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {
@@ -87,7 +89,7 @@ final class H264PerformanceTests: XCTestCase {
     func testH264SerialzePerfomanceUsingData() throws {
         typealias DataType = Data
         let rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {
@@ -101,7 +103,7 @@ final class H264PerformanceTests: XCTestCase {
     func testH264SerialzePerfomanceUsingUInt8Array() throws {
         typealias DataType = Array<UInt8>
         let rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {
@@ -115,7 +117,7 @@ final class H264PerformanceTests: XCTestCase {
     func testH264SerialzePerfomanceUsingDispatchData() throws {
         typealias DataType = DispatchData
         let rtpSerialzer = RTPSerialzer(maxSizeOfPacket: maxDatagramSize, synchronisationSource: RTPSynchronizationSource(rawValue: 1))
-        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
+        let h264Serialzer = H264.NALNonInterleavedPacketSerializer<IntermediateDataType, DataType>(maxSizeOfNalu: rtpSerialzer.maxSizeOfPayload)
         
         let nalus = getTypicialInitalNalus(type: DataType.self)
         measure {

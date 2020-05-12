@@ -8,11 +8,17 @@
 import Foundation
 
 public protocol ConcatableData: DataProtocol {
+    static var canConcatDataWithoutReallocation: Bool { get }
+    init(_ subSequence: SubSequence)
     mutating func concat(_ other: Self)
     mutating func concat(_ other: SubSequence)
 }
 
 extension DispatchData: ConcatableData {
+    public static var canConcatDataWithoutReallocation: Bool { true }
+    public init(_ subSequence: Slice<DispatchData>) {
+        self = DispatchData(slice: subSequence)
+    }
     @inlinable
     public mutating func concat(_ other: Self) { append(other) }
     @inlinable
@@ -34,10 +40,12 @@ extension DispatchData {
 }
 
 extension Data: ConcatableData {
+    public static var canConcatDataWithoutReallocation: Bool { false }
     @inlinable
     public mutating func concat(_ other: Self) { append(other) }
 }
 extension Array: ConcatableData where Element == UInt8 {
+    public static var canConcatDataWithoutReallocation: Bool { false }
     @inlinable
     public mutating func concat(_ other: Self) { append(contentsOf: other) }
     @inlinable
