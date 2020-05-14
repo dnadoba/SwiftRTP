@@ -16,6 +16,20 @@ public struct SerialNumber<Number: UnsignedInteger & FixedWidthInteger>: RawRepr
 
 extension SerialNumber: Hashable where Number: Hashable {}
 
+extension SerialNumber: Encodable where Number: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
+    }
+}
+
+extension SerialNumber: Decodable where Number: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self.init(rawValue: try container.decode(Number.self))
+    }
+}
+
 extension SerialNumber: ExpressibleByIntegerLiteral where Number: _ExpressibleByBuiltinIntegerLiteral{
     public init(integerLiteral value: Number) {
         self.init(rawValue: value)
@@ -42,7 +56,3 @@ extension SerialNumber: Comparable {
             (i1 > i2 && i1 - i2 > halfMaxValue)
     }
 }
-
-
-
-
