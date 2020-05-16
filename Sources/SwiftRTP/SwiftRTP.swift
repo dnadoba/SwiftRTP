@@ -67,7 +67,7 @@ public struct RTPHeader: Equatable {
     public var payloadType: RTPPayloadType
     
     /// The sequence number increments by one for each RTP data packet sent, and may be used by the receiver to detect packet loss and to restore packet sequence. The initial value of the sequence number should be random (unpredictable) to make known-plaintext attacks on encryption more difficult, even if the source itself does not encrypt according to the method in Section 9.1, because the packets may flow through a translator that does. Techniques for choosing unpredictable numbers are discussed in [17].
-    public var sequenceNumber: UInt16
+    public var sequenceNumber: SerialNumber<UInt16>
     
     /// The timestamp reflects the sampling instant of the first octet in the RTP data packet. The sampling instant must be derived from a clock that increments monotonically and linearly in time to allow synchronization and jitter calculations (see Section 6.4.1). The resolution of the clock must be sufficient for the desired synchronization accuracy and for measuring packet arrival jitter (one tick per video frame is typically not sufficient). The clock frequency is dependent on the format of data carried as payload and is specified statically in the profile or payload format specification that defines the format, or may be specified dynamically for payload formats defined through non-RTP means. If RTP packets are generated periodically, the nominal sampling instant as determined from the sampling clock is to be used, not a reading of the system clock. As an example, for fixed-rate audio the timestamp clock would likely increment by one for each sampling period. If an audio application reads blocks covering 160 sampling periods from the input device, the timestamp would be increased by 160 for each such block, regardless of whether the block is transmitted in a packet or dropped as silent.
     /// The initial value of the timestamp should be random, as for the sequence number. Several consecutive RTP packets will have equal timestamps if they are (logically) generated at once, e.g., belong to the same video frame. Consecutive RTP packets may contain timestamps that are not monotonic if the data is not transmitted in the order it was sampled, as in the case of MPEG interpolated video frames. (The sequence numbers of the packets as transmitted will still be monotonic.)
@@ -101,7 +101,7 @@ public struct RTPHeader: Equatable {
         self.extension = `extension`
         self.marker = marker
         self.payloadType = payloadType
-        self.sequenceNumber = sequenceNumber
+        self.sequenceNumber = .init(rawValue: sequenceNumber)
         self.timestamp = timestamp
         self.synchronisationSource = synchronisationSource
         self.contributingSources = contributingSources
@@ -117,7 +117,7 @@ extension RTPHeader {
         let contributingSourceCount = try reader.readBits(4, type: Int.self)
         self.marker = try reader.readBool()
         self.payloadType = RTPPayloadType(rawValue: try reader.readBits(7))
-        self.sequenceNumber = try reader.readInteger()
+        self.sequenceNumber = .init(rawValue: try reader.readInteger())
         self.timestamp = try reader.readInteger()
         self.synchronisationSource = RTPSynchronizationSource(rawValue: try reader.readInteger())
         if contributingSourceCount == 0 {
@@ -139,7 +139,7 @@ extension RTPHeader {
         writer.writeBits(from: contributingSourceCount, count: 4)
         writer.writeBool(marker)
         writer.writeBits(from: payloadType.rawValue, count: 7)
-        writer.writeInt(sequenceNumber)
+        writer.writeInt(sequenceNumber.rawValue)
         writer.writeInt(timestamp)
         writer.writeInt(synchronisationSource.rawValue)
         contributingSources?.forEach { contributingSource in
