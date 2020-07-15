@@ -42,6 +42,12 @@ extension SerialNumber {
     public static func +(lhs: Self, rhs: Self) -> Self {
         Self(rawValue: lhs.rawValue &+ rhs.rawValue)
     }
+    /// Addition as defined in `RFC 1982`: `(lhs + rhs) modulo (2^Number.bitWidth)` with overflow reporting.
+    /// Addition of a value greater than or equal to `2^(Number.bitWidth - 1)` is undefined.
+    public func addingReportingOverflow(_ rhs: Self) -> (number: Self, overflow: Bool) {
+        let (value, overflow) = self.rawValue.addingReportingOverflow(rhs.rawValue)
+        return (Self(rawValue: value), overflow)
+    }
 }
 
 
