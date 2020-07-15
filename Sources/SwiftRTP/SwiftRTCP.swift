@@ -55,11 +55,6 @@ public struct NTPTimestamp {
     var faction: UInt32
 }
 
-public struct ExtendedSequenceNumber {
-    var sequenceNumber: UInt16
-    var sequenceNumberOverflowCount: UInt16
-}
-
 public struct RTCPSenderReport {
     public struct Info {
         // MARK: - Sender Info
@@ -74,6 +69,7 @@ public struct RTCPSenderReport {
         // MARK: - Report Block
         public var packetLostFraction: UInt8
         public var packetLostCount: UInt32 // UInt24
+        public var highestRecievedSequenceNumber: SerialNumberWithOverflowCount<UInt16, UInt16>
         public var interarrivalJitter: UInt32
         /// The middle 32 bits out of 64 in the NTP timestamp (as explained in Section 4) received as part of the most recent RTCP sender report (SR) packet from source SSRC n. If no SR has been received yet, the field is set to zero.
         public var lastSenderReportMiddleOfNTPTimestamp: UInt32
