@@ -55,27 +55,36 @@ public struct NTPTimestamp {
     var faction: UInt32
 }
 
+public struct RTCPSenderReportInfo {
+    public var ntpTimestamp: NTPTimestamp
+    public var rtpTimestamp: UInt32
+    /// sender's packet count
+    public var packetCount: UInt32
+    /// sender's octet count
+    public var byteCount: UInt32
+}
+
+public struct RTCPReportBlock {
+    public var packetLostFraction: UInt8
+    public var packetLostCount: UInt32 // UInt24
+    public var highestRecievedSequenceNumber: SerialNumberWithOverflowCount<UInt16, UInt16>
+    public var interarrivalJitter: UInt32
+    /// The middle 32 bits out of 64 in the NTP timestamp (as explained in Section 4) received as part of the most recent RTCP sender report (SR) packet from source SSRC n. If no SR has been received yet, the field is set to zero.
+    public var lastSenderReportMiddleOfNTPTimestamp: UInt32
+    /// The delay, expressed in units of 1/65536 seconds, between receiving the last SR packet from source SSRC n and sending this reception report block. If no SR packet has been received yet from SSRC n, the DLSR field is set to zero.
+    public var delaySinceLastSenderReport: UInt32
+}
+
 public struct RTCPSenderReport {
-    public struct Info {
-        // MARK: - Sender Info
-        public var ntpTimestamp: NTPTimestamp
-        public var rtpTimestamp: UInt32
-        /// sender's packet count
-        public var packetCount: UInt32
-        /// sender's octet count
-        public var byteCount: UInt32
-    }
-    public struct Block {
-        // MARK: - Report Block
-        public var packetLostFraction: UInt8
-        public var packetLostCount: UInt32 // UInt24
-        public var highestRecievedSequenceNumber: SerialNumberWithOverflowCount<UInt16, UInt16>
-        public var interarrivalJitter: UInt32
-        /// The middle 32 bits out of 64 in the NTP timestamp (as explained in Section 4) received as part of the most recent RTCP sender report (SR) packet from source SSRC n. If no SR has been received yet, the field is set to zero.
-        public var lastSenderReportMiddleOfNTPTimestamp: UInt32
-        /// The delay, expressed in units of 1/65536 seconds, between receiving the last SR packet from source SSRC n and sending this reception report block. If no SR packet has been received yet from SSRC n, the DLSR field is set to zero.
-        public var delaySinceLastSenderReport: UInt32
-    }
-    public var info: Info
-    public var blocks: [Block]
+    public var info: RTCPSenderReportInfo
+    public var blocks: [RTCPReportBlock]
+}
+
+public struct RTCPRecieverReport {
+    public var blocks: [RTCPReportBlock]
+}
+
+
+public struct RTCPSourceDescription {
+    
 }
