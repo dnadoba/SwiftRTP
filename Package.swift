@@ -13,7 +13,10 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(path: "../BinaryKit"),
+        .package(
+            url: "https://github.com/dnadoba/BinaryKit.git",
+            from: "4.0.0"
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
