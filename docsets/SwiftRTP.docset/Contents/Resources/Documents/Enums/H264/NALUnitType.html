@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NALUnitType Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/NALUnitType" class="dashAnchor"></a>
+    <a title="NALUnitType Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">SwiftRTP Docs</a> (38% documented)</p>
+        <p class="header-right"><a href="https://github.com/dnadoba/SwiftRTP"><img src="../../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fdnadoba.github.io%2FSwiftRTP%2Fdocsets%2FSwiftRTP.xml"><img src="../../img/dash.png"/>Install in Dash</a></p>
+        <p class="header-right">
+          <form role="search" action="../../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">SwiftRTP Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        NALUnitType Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/H264.html">H264</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/NALUnitType.html">– NALUnitType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/NALUnitHeader.html">– NALUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/NALUnit.html">– NALUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/FragmentationUnitHeader.html">– FragmentationUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/FragmentationUnitTypeAParser.html">– FragmentationUnitTypeAParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/NALNonInterleavedPacketParser.html">– NALNonInterleavedPacketParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/H264/NALNonInterleavedPacketSerializer.html">– NALNonInterleavedPacketSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/DispatchData.html">DispatchData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/RandomAccessCollection.html">RandomAccessCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/ConcatableData.html">ConcatableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReferenceInitalizeableData.html">ReferenceInitalizeableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/Writable.html">Writable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/AnyWriteable.html">AnyWriteable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs.html#/s:8SwiftRTP12NTPTimestampV">NTPTimestamp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPHeader.html">RTCPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPPacketType.html">RTCPPacketType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPRecieverReport.html">RTCPRecieverReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPReportBlock.html">RTCPReportBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPSenderReport.html">RTCPSenderReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPSenderReportInfo.html">RTCPSenderReportInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs.html#/s:8SwiftRTP21RTCPSourceDescriptionV">RTCPSourceDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTCPSourceDescriptionType.html">RTCPSourceDescriptionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPContributingSource.html">RTPContributingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPHeader.html">RTPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPPacket.html">RTPPacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPPayloadType.html">RTPPayloadType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPSequenceNumberGenerator.html">RTPSequenceNumberGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPSerialzer.html">RTPSerialzer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPSynchronizationSource.html">RTPSynchronizationSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/RTPVersion.html">RTPVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SerialNumber.html">SerialNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SerialNumberWithOverflowCount.html">SerialNumberWithOverflowCount</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NALUnitType</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NALUnitType</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span><span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV9reserved0AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved0" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV9reserved0AEvpZ">reserved0</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resverd 0</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved0</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV41nonInstantaneousDecodingRefreshCodedSliceAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/nonInstantaneousDecodingRefreshCodedSlice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV41nonInstantaneousDecodingRefreshCodedSliceAEvpZ">nonInstantaneousDecodingRefreshCodedSlice</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice of a non-IDR (instantaneous decoding refresh) picture</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">nonInstantaneousDecodingRefreshCodedSlice</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionAAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceDataPartitionA" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionAAEvpZ">codedSliceDataPartitionA</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice data partition A</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceDataPartitionA</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionBAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceDataPartitionB" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionBAEvpZ">codedSliceDataPartitionB</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice data partition B</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceDataPartitionB</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionCAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceDataPartitionC" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV24codedSliceDataPartitionCAEvpZ">codedSliceDataPartitionC</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice data partition C</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceDataPartitionC</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV38instantaneousDecodingRefreshCodedSliceAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/instantaneousDecodingRefreshCodedSlice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV38instantaneousDecodingRefreshCodedSliceAEvpZ">instantaneousDecodingRefreshCodedSlice</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Instantaneous Decoding Refresh (IDR) Coded Slice</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">instantaneousDecodingRefreshCodedSlice</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV34supplementalEnhancementInformationAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/supplementalEnhancementInformation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV34supplementalEnhancementInformationAEvpZ">supplementalEnhancementInformation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Supplemental enhancement information (SEI)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">supplementalEnhancementInformation</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV20sequenceParameterSetAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/sequenceParameterSet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV20sequenceParameterSetAEvpZ">sequenceParameterSet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sequence parameter set (SPS)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">sequenceParameterSet</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV19pictureParameterSetAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/pictureParameterSet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV19pictureParameterSetAEvpZ">pictureParameterSet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Picture parameter set (PPS)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">pictureParameterSet</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV18accessUnitDelmiterAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/accessUnitDelmiter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV18accessUnitDelmiterAEvpZ">accessUnitDelmiter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access Unit Delmiter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">accessUnitDelmiter</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV13endOfSequenceAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/endOfSequence" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV13endOfSequenceAEvpZ">endOfSequence</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>End of sequence</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">endOfSequence</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV11endOfStreamAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/endOfStream" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV11endOfStreamAEvpZ">endOfStream</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>End of stream</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">endOfStream</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10fillerDataAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fillerData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10fillerDataAEvpZ">fillerData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Filler data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">fillerData</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV29sequenceParameterSetExtensionAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/sequenceParameterSetExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV29sequenceParameterSetExtensionAEvpZ">sequenceParameterSetExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sequence parameter set extension</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">sequenceParameterSetExtension</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV33prefixNetworkAbstractionLayerUnitAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/prefixNetworkAbstractionLayerUnit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV33prefixNetworkAbstractionLayerUnitAEvpZ">prefixNetworkAbstractionLayerUnit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prefix Network Abstraction Layer (NAL) Unit</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">prefixNetworkAbstractionLayerUnit</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV26subsetSequenceParameterSetAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/subsetSequenceParameterSet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV26subsetSequenceParameterSetAEvpZ">subsetSequenceParameterSet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subset sequence parameter set</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">subsetSequenceParameterSet</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved16AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved16" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved16AEvpZ">reserved16</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 16</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved16</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved17AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved17" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved17AEvpZ">reserved17</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 17</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved17</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved18AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved18" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved18AEvpZ">reserved18</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 18</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved18</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV54codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioningAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioning" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV54codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioningAEvpZ">codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioning</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice of an auxiliary coded picture without partitioning</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceOfAnAuxiliaryCodedPictureWithoutPartitioning</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV19codedSliceExtensionAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV19codedSliceExtensionAEvpZ">codedSliceExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice extension</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceExtension</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV41codedSliceExtensionForDepthViewComponentsAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/codedSliceExtensionForDepthViewComponents" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV41codedSliceExtensionForDepthViewComponentsAEvpZ">codedSliceExtensionForDepthViewComponents</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Coded slice extension for depth view components</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">codedSliceExtensionForDepthViewComponents</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved22AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved22" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved22AEvpZ">reserved22</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 22</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved22</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved23AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved23" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved23AEvpZ">reserved23</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 23</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved23</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV28singleTimeAggregationPacketAAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/singleTimeAggregationPacketA" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV28singleTimeAggregationPacketAAEvpZ">singleTimeAggregationPacketA</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-Time Aggregation Packet type A (STAP-A)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">singleTimeAggregationPacketA</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV28singleTimeAggregationPacketBAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/singleTimeAggregationPacketB" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV28singleTimeAggregationPacketBAEvpZ">singleTimeAggregationPacketB</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Single-Time Aggregation Packet type B (STAP-B)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">singleTimeAggregationPacketB</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV28multiTimeAggregationPacket16AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/multiTimeAggregationPacket16" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV28multiTimeAggregationPacket16AEvpZ">multiTimeAggregationPacket16</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Multi-Time Aggregation Packet with 16-bit timestamp offset (MTAP16)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">multiTimeAggregationPacket16</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV28multiTimeAggregationPacket24AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/multiTimeAggregationPacket24" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV28multiTimeAggregationPacket24AEvpZ">multiTimeAggregationPacket24</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Multi-Time Aggregation Packet with 24-bit timestamp offset (MTAP24)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">multiTimeAggregationPacket24</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV18fragmentationUnitAAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fragmentationUnitA" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV18fragmentationUnitAAEvpZ">fragmentationUnitA</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fragmentation Unit type A (FU-A)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">fragmentationUnitA</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV18fragmentationUnitBAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fragmentationUnitB" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV18fragmentationUnitBAEvpZ">fragmentationUnitB</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fragmentation Unit type B (FU-B)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">fragmentationUnitB</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved30AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved30" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved30AEvpZ">reserved30</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 30</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved30</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10reserved31AEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/reserved31" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10reserved31AEvpZ">reserved31</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserved 31</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">reserved31</span><span class="p">:</span> <span class="kt"><a href="../../Enums/H264.html">H264</a></span><span class="o">.</span><span class="kt">NALUnitType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV8rawValues5UInt8Vvp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV8rawValues5UInt8Vvp">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">UInt8</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV8rawValueAEs5UInt8V_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rawValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV8rawValueAEs5UInt8V_tcfc">init(rawValue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">UInt8</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rawValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>allowed value range is from 0 to 31 inclusive (only the first 5 bits)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s12CaseIterableP8allCases03AllD0QzvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/allCases" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s12CaseIterableP8allCases03AllD0QzvpZ">allCases</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">allCases</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="k">Self</span><span class="err">`</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV4nameSSvp">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV18isVideoCodingLayerSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isVideoCodingLayer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV18isVideoCodingLayerSbvp">isVideoCodingLayer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">isVideoCodingLayer</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV21isNonVideoCodingLayerSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isNonVideoCodingLayer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV21isNonVideoCodingLayerSbvp">isNonVideoCodingLayer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">isNonVideoCodingLayer</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV14isSinglePacketSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isSinglePacket" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV14isSinglePacketSbvp">isSinglePacket</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">isSinglePacket</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP4H264O11NALUnitTypeV10isReservedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isReserved" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP4H264O11NALUnitTypeV10isReservedSbvp">isReserved</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">isReserved</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="http://nadoba.de" target="_blank" rel="noopener" rel="external">David Nadoba</a>. All rights reserved. (Last updated: 2021-08-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

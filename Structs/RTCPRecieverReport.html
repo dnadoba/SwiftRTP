@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RTCPRecieverReport Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/RTCPRecieverReport" class="dashAnchor"></a>
+    <a title="RTCPRecieverReport Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftRTP Docs</a> (38% documented)</p>
+        <p class="header-right"><a href="https://github.com/dnadoba/SwiftRTP"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fdnadoba.github.io%2FSwiftRTP%2Fdocsets%2FSwiftRTP.xml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftRTP Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RTCPRecieverReport Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/H264.html">H264</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnitType.html">– NALUnitType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnitHeader.html">– NALUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnit.html">– NALUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/FragmentationUnitHeader.html">– FragmentationUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/FragmentationUnitTypeAParser.html">– FragmentationUnitTypeAParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALNonInterleavedPacketParser.html">– NALNonInterleavedPacketParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALNonInterleavedPacketSerializer.html">– NALNonInterleavedPacketSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DispatchData.html">DispatchData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/RandomAccessCollection.html">RandomAccessCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ConcatableData.html">ConcatableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReferenceInitalizeableData.html">ReferenceInitalizeableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Writable.html">Writable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AnyWriteable.html">AnyWriteable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:8SwiftRTP12NTPTimestampV">NTPTimestamp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPHeader.html">RTCPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPPacketType.html">RTCPPacketType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPRecieverReport.html">RTCPRecieverReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPReportBlock.html">RTCPReportBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSenderReport.html">RTCPSenderReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSenderReportInfo.html">RTCPSenderReportInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:8SwiftRTP21RTCPSourceDescriptionV">RTCPSourceDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSourceDescriptionType.html">RTCPSourceDescriptionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPContributingSource.html">RTPContributingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPHeader.html">RTPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPPacket.html">RTPPacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPPayloadType.html">RTPPayloadType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSequenceNumberGenerator.html">RTPSequenceNumberGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSerialzer.html">RTPSerialzer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSynchronizationSource.html">RTPSynchronizationSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPVersion.html">RTPVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SerialNumber.html">SerialNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SerialNumberWithOverflowCount.html">SerialNumberWithOverflowCount</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RTCPRecieverReport</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RTCPRecieverReport</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP18RTCPRecieverReportV6blocksSayAA15RTCPReportBlockVGvp"></a>
+                    <a name="//apple_ref/swift/Property/blocks" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP18RTCPRecieverReportV6blocksSayAA15RTCPReportBlockVGvp">blocks</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">blocks</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/RTCPReportBlock.html">RTCPReportBlock</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="http://nadoba.de" target="_blank" rel="noopener" rel="external">David Nadoba</a>. All rights reserved. (Last updated: 2021-08-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

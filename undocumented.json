@@ -1,0 +1,1293 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 10,
+      "symbol": "ConcatableData",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 11,
+      "symbol": "ConcatableData.canConcatDataWithoutReallocation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 12,
+      "symbol": "ConcatableData.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 13,
+      "symbol": "ConcatableData.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 14,
+      "symbol": "ConcatableData.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 18,
+      "symbol": "DispatchData.canConcatDataWithoutReallocation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 19,
+      "symbol": "DispatchData.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 23,
+      "symbol": "DispatchData.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 25,
+      "symbol": "DispatchData.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 43,
+      "symbol": "Data.canConcatDataWithoutReallocation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 45,
+      "symbol": "Data.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 48,
+      "symbol": "Array.canConcatDataWithoutReallocation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 50,
+      "symbol": "Array.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 52,
+      "symbol": "Array.concat(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 55,
+      "symbol": "ReferenceInitalizeableData",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 56,
+      "symbol": "ReferenceInitalizeableData.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 57,
+      "symbol": "ReferenceInitalizeableData.init(copyBytes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 60,
+      "symbol": "ReferenceInitalizeableData",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 62,
+      "symbol": "ReferenceInitalizeableData.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 67,
+      "symbol": "ReferenceInitalizeableData",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 69,
+      "symbol": "ReferenceInitalizeableData.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 73,
+      "symbol": "ReferenceInitalizeableData.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 80,
+      "symbol": "DispatchData.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 84,
+      "symbol": "DispatchData.init(copyBytes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 90,
+      "symbol": "Data.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 100,
+      "symbol": "Data.init(copyBytes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 107,
+      "symbol": "Array.init(referenceOrCopy:deallocator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 112,
+      "symbol": "Array.init(copyBytes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/DataProtocols.swift",
+      "line": 517,
+      "symbol": "ReferenceInitalizeableData",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 16,
+      "symbol": "H264.NALUnitType",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 82,
+      "symbol": "H264.NALUnitType.rawValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 93,
+      "symbol": "H264.NALUnitType",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 98,
+      "symbol": "H264.NALUnitType",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 102,
+      "symbol": "H264.NALUnitType.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 141,
+      "symbol": "H264.NALUnitType",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 142,
+      "symbol": "H264.NALUnitType.isVideoCodingLayer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 143,
+      "symbol": "H264.NALUnitType.isNonVideoCodingLayer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 144,
+      "symbol": "H264.NALUnitType.isSinglePacket",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 145,
+      "symbol": "H264.NALUnitType.isReserved",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 172,
+      "symbol": "H264.NALUnitHeader.init(forbiddenZeroBit:referenceIndex:type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 182,
+      "symbol": "H264.NALUnitHeader.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 191,
+      "symbol": "H264.NALUnitHeader.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 197,
+      "symbol": "H264.NALUnitHeader.byte",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 210,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 211,
+      "symbol": "H264.NALUnit.header",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 212,
+      "symbol": "H264.NALUnit.payload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 214,
+      "symbol": "H264.NALUnit.init(header:payload:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 221,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 223,
+      "symbol": "H264.NALUnit.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 229,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 231,
+      "symbol": "H264.NALUnit.bytes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 238,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 244,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 245,
+      "symbol": "H264.NALUnit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 247,
+      "symbol": "H264.FragmentationUnitHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 254,
+      "symbol": "H264.FragmentationUnitHeader.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 256,
+      "symbol": "H264.FragmentationUnitHeader.init(isStart:isEnd:reservedBit:type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 265,
+      "symbol": "H264.FragmentationUnitHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 267,
+      "symbol": "H264.FragmentationUnitHeader.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 275,
+      "symbol": "H264.FragmentationUnitHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 277,
+      "symbol": "H264.FragmentationUnitHeader.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 284,
+      "symbol": "H264.FragmentationUnitHeader.byte",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 291,
+      "symbol": "H264.FragmentationUnitHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 297,
+      "symbol": "H264.FragmentationUnitTypeAParser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 298,
+      "symbol": "H264.FragmentationUnitTypeAParser.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 299,
+      "symbol": "H264.FragmentationUnitTypeAParser.Error.startAndEndBitIsSetInTheSamePackage",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 300,
+      "symbol": "H264.FragmentationUnitTypeAParser.Error.recivedFragmentBeforeStartFragment",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 301,
+      "symbol": "H264.FragmentationUnitTypeAParser.Error.recivedFragmentWithDifferentHeader",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 302,
+      "symbol": "H264.FragmentationUnitTypeAParser.Error.recivedFragmentEndBeforeStartFragment",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 309,
+      "symbol": "H264.FragmentationUnitTypeAParser.readPackage(from:header:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 363,
+      "symbol": "H264.NALNonInterleavedPacketParser",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 364,
+      "symbol": "H264.NALNonInterleavedPacketParser.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 365,
+      "symbol": "H264.NALNonInterleavedPacketParser.Error.singleTimeAggreationPackageA_sizOfChildNALUToSmall",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 366,
+      "symbol": "H264.NALNonInterleavedPacketParser.Error.didRecieveUnsuportedPacketType(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 370,
+      "symbol": "H264.NALNonInterleavedPacketParser.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 372,
+      "symbol": "H264.NALNonInterleavedPacketParser.readPackage(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 439,
+      "symbol": "RTPPayloadType.h264",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 452,
+      "symbol": "Writable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 453,
+      "symbol": "Writable.size",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 454,
+      "symbol": "Writable.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 457,
+      "symbol": "Writable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 459,
+      "symbol": "Writable.bytes(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 466,
+      "symbol": "Writable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 467,
+      "symbol": "Writable.toAnyWriteable()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 474,
+      "symbol": "AnyWriteable",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 475,
+      "symbol": "AnyWriteable.Handler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 476,
+      "symbol": "AnyWriteable.size",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 480,
+      "symbol": "AnyWriteable.init(size:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 485,
+      "symbol": "AnyWriteable.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 489,
+      "symbol": "AnyWriteable.bytes()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 496,
+      "symbol": "AnyWriteable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 503,
+      "symbol": "AnyWriteable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 512,
+      "symbol": "H264.FragmentationUnitHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 519,
+      "symbol": "ReferenceInitalizeableData.init(copyBytes:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 527,
+      "symbol": "H264.NALNonInterleavedPacketSerializer",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 528,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.TemporaryDataType",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 529,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.maxSizeOfNaluPacket",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 532,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.payloadType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 533,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 536,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.init(maxSizeOfNalu:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 540,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.serialize(_:timestamp:lastNALUsForGivenTimestamp:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 585,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.serializeAsSignelOrAggregatedPacket(_:timestamp:lastNALUsForGivenTimestamp:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 594,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.serializeAsSinglePacket(_:timestamp:isLastNALUForGivenTimestamp:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 603,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.serializeAsSingleTimeAggregationPacketTypeA(_:timestamp:lastNALUsForGivenTimestamp:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/H264.swift",
+      "line": 625,
+      "symbol": "H264.NALNonInterleavedPacketSerializer.serializeAsFragmentationUnitTypeA(_:timestamp:isLastNALUForGivenTimestamp:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 8,
+      "symbol": "SerialNumberWithOverflowCount",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 12,
+      "symbol": "SerialNumberWithOverflowCount.serialNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 13,
+      "symbol": "SerialNumberWithOverflowCount.overflowCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 15,
+      "symbol": "SerialNumberWithOverflowCount.init(serialNumber:overflowCount:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 19,
+      "symbol": "SerialNumberWithOverflowCount.init(number:overflowCount:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 25,
+      "symbol": "SerialNumberWithOverflowCount",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 27,
+      "symbol": "SerialNumberWithOverflowCount.increment(by:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 35,
+      "symbol": "SerialNumberWithOverflowCount.incremented(by:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 42,
+      "symbol": "SerialNumberWithOverflowCount",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SerialNumberWithOverflowCount.swift",
+      "line": 44,
+      "symbol": "SerialNumberWithOverflowCount.sum(sumType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 10,
+      "symbol": "RTCPPacketType",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 11,
+      "symbol": "RTCPPacketType.senderReport",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 12,
+      "symbol": "RTCPPacketType.recieverReport",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 13,
+      "symbol": "RTCPPacketType.sourceDescription",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 14,
+      "symbol": "RTCPPacketType.goodbye",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 15,
+      "symbol": "RTCPPacketType.applicationDefined",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 24,
+      "symbol": "RTCPSourceDescriptionType",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 25,
+      "symbol": "RTCPSourceDescriptionType.endOfSourceDescriptionList",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 26,
+      "symbol": "RTCPSourceDescriptionType.canonicalName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 27,
+      "symbol": "RTCPSourceDescriptionType.userName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 28,
+      "symbol": "RTCPSourceDescriptionType.userEmailAddress",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 29,
+      "symbol": "RTCPSourceDescriptionType.userPhoneNumber",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 30,
+      "symbol": "RTCPSourceDescriptionType.geographicUserLocation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 31,
+      "symbol": "RTCPSourceDescriptionType.nameOfApplicationOrTool",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 32,
+      "symbol": "RTCPSourceDescriptionType.noticeAboutTheSource",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 33,
+      "symbol": "RTCPSourceDescriptionType.privateExtension",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 42,
+      "symbol": "RTCPHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 48,
+      "symbol": "RTCPHeader.packetType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 53,
+      "symbol": "NTPTimestamp",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 58,
+      "symbol": "RTCPSenderReportInfo",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 59,
+      "symbol": "RTCPSenderReportInfo.ntpTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 60,
+      "symbol": "RTCPSenderReportInfo.rtpTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 67,
+      "symbol": "RTCPReportBlock",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 68,
+      "symbol": "RTCPReportBlock.packetLostFraction",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 69,
+      "symbol": "RTCPReportBlock.packetLostCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 70,
+      "symbol": "RTCPReportBlock.highestRecievedSequenceNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 71,
+      "symbol": "RTCPReportBlock.interarrivalJitter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 78,
+      "symbol": "RTCPSenderReport",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 79,
+      "symbol": "RTCPSenderReport.info",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 80,
+      "symbol": "RTCPSenderReport.blocks",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 83,
+      "symbol": "RTCPRecieverReport",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 84,
+      "symbol": "RTCPRecieverReport.blocks",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTCP.swift",
+      "line": 88,
+      "symbol": "RTCPSourceDescription",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 4,
+      "symbol": "RTPVersion",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 20,
+      "symbol": "RTPPayloadType",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 49,
+      "symbol": "RTPHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 88,
+      "symbol": "RTPHeader.init(version:padding:extension:marker:payloadType:sequenceNumber:timestamp:synchronisationSource:contributingSources:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 111,
+      "symbol": "RTPHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 113,
+      "symbol": "RTPHeader.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 133,
+      "symbol": "RTPHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 135,
+      "symbol": "RTPHeader.write(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 150,
+      "symbol": "RTPHeader.asNetworkData(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 159,
+      "symbol": "RTPHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 161,
+      "symbol": "RTPHeader.size(contributingSourceCount:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 173,
+      "symbol": "RTPPacket",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 174,
+      "symbol": "RTPPacket.payloadType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 175,
+      "symbol": "RTPPacket.timestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 176,
+      "symbol": "RTPPacket.marker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 177,
+      "symbol": "RTPPacket.includesPadding",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 178,
+      "symbol": "RTPPacket.includesHeaderExtension",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 179,
+      "symbol": "RTPPacket.header",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 180,
+      "symbol": "RTPPacket.payload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 183,
+      "symbol": "RTPPacket.init(payloadType:header:payload:timestamp:marker:includesPadding:includesHeaderExtension:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 195,
+      "symbol": "RTPPacket",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 215,
+      "symbol": "RTPSequenceNumberGenerator",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 219,
+      "symbol": "RTPSequenceNumberGenerator.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 223,
+      "symbol": "RTPSequenceNumberGenerator.init(inital:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 227,
+      "symbol": "RTPSequenceNumberGenerator.next()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 233,
+      "symbol": "RTPSerialzer",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 234,
+      "symbol": "RTPSerialzer.TemporaryDataType",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 235,
+      "symbol": "RTPSerialzer.maxSizeOfPacket",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 236,
+      "symbol": "RTPSerialzer.version",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 237,
+      "symbol": "RTPSerialzer.synchronisationSource",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 238,
+      "symbol": "RTPSerialzer.contributingSources",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 242,
+      "symbol": "RTPSerialzer.init(maxSizeOfPacket:synchronisationSource:contributingSources:version:initalSequenceNumber:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 257,
+      "symbol": "RTPSerialzer.maxSizeOfPayload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 261,
+      "symbol": "RTPSerialzer.serialze(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 438,
+      "symbol": "RTPPayloadType",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/SwiftRTP/SwiftRTP/Sources/SwiftRTP/SwiftRTP.swift",
+      "line": 514,
+      "symbol": "RTPHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/SwiftRTP/SwiftRTP"
+}

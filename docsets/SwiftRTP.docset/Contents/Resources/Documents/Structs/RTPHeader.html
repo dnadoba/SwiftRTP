@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RTPHeader Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/RTPHeader" class="dashAnchor"></a>
+    <a title="RTPHeader Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftRTP Docs</a> (38% documented)</p>
+        <p class="header-right"><a href="https://github.com/dnadoba/SwiftRTP"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fdnadoba.github.io%2FSwiftRTP%2Fdocsets%2FSwiftRTP.xml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftRTP Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RTPHeader Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/H264.html">H264</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnitType.html">– NALUnitType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnitHeader.html">– NALUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALUnit.html">– NALUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/FragmentationUnitHeader.html">– FragmentationUnitHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/FragmentationUnitTypeAParser.html">– FragmentationUnitTypeAParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALNonInterleavedPacketParser.html">– NALNonInterleavedPacketParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/H264/NALNonInterleavedPacketSerializer.html">– NALNonInterleavedPacketSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DispatchData.html">DispatchData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/RandomAccessCollection.html">RandomAccessCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ConcatableData.html">ConcatableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReferenceInitalizeableData.html">ReferenceInitalizeableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Writable.html">Writable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AnyWriteable.html">AnyWriteable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:8SwiftRTP12NTPTimestampV">NTPTimestamp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPHeader.html">RTCPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPPacketType.html">RTCPPacketType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPRecieverReport.html">RTCPRecieverReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPReportBlock.html">RTCPReportBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSenderReport.html">RTCPSenderReport</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSenderReportInfo.html">RTCPSenderReportInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:8SwiftRTP21RTCPSourceDescriptionV">RTCPSourceDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTCPSourceDescriptionType.html">RTCPSourceDescriptionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPContributingSource.html">RTPContributingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPHeader.html">RTPHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPPacket.html">RTPPacket</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPPayloadType.html">RTPPayloadType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSequenceNumberGenerator.html">RTPSequenceNumberGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSerialzer.html">RTPSerialzer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPSynchronizationSource.html">RTPSynchronizationSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RTPVersion.html">RTPVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SerialNumber.html">SerialNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SerialNumberWithOverflowCount.html">SerialNumberWithOverflowCount</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RTPHeader</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RTPHeader</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RTPHeader</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Writable.html">Writable</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV7versionAA10RTPVersionVvp"></a>
+                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV7versionAA10RTPVersionVvp">version</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This field identifies the version of RTP</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">version</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPVersion.html">RTPVersion</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV7paddingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/padding" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV7paddingSbvp">padding</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the padding bit is set, the packet contains one or more additional padding octets at the end which are not part of the payload. The last octet of the padding contains a count of how many padding octets should be ignored, including itself. Padding may be needed by some encryption algorithms with fixed block sizes or for carrying several RTP packets in a lower-layer protocol data unit.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">padding</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV9extensionSbvp"></a>
+                    <a name="//apple_ref/swift/Property/extension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV9extensionSbvp">extension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If true, the fixed header must be followed by exactly one header extension, with a format defined in Section 5.3.1.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">var</span> <span class="err">`</span><span class="kd">extension</span><span class="err">`</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV23contributingSourceCountSivp"></a>
+                    <a name="//apple_ref/swift/Property/contributingSourceCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV23contributingSourceCountSivp">contributingSourceCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Contributing source (CSRC) count contains the number of CSRC identifiers that follow the fixed header.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contributingSourceCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV6markerSbvp"></a>
+                    <a name="//apple_ref/swift/Property/marker" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV6markerSbvp">marker</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The interpretation of the marker is defined by a profile. It is intended to allow significant events such as frame boundaries to be marked in the packet stream. A profile may define additional marker bits or specify that there is no marker bit by changing the number of bits in the payload type field (see Section 5.3).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">marker</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV11payloadTypeAA010RTPPayloadE0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/payloadType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV11payloadTypeAA010RTPPayloadE0Vvp">payloadType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This field identifies the format of the RTP payload and determines its interpretation by the application. A profile may specify a default static mapping of payload type codes to payload formats. Additional payload type codes may be defined dynamically through non-RTP means (see Section 3). A set of default mappings for audio and video is specified in the companion RFC 3551 [1]. An RTP source may change the payload type during a session, but this field should not be used for multiplexing separate media streams (see Section 5.2).
+A receiver must ignore packets with payload types that it does not understand.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">payloadType</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPPayloadType.html">RTPPayloadType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV14sequenceNumberAA06SerialE0Vys6UInt16VGvp"></a>
+                    <a name="//apple_ref/swift/Property/sequenceNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV14sequenceNumberAA06SerialE0Vys6UInt16VGvp">sequenceNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The sequence number increments by one for each RTP data packet sent, and may be used by the receiver to detect packet loss and to restore packet sequence. The initial value of the sequence number should be random (unpredictable) to make known-plaintext attacks on encryption more difficult, even if the source itself does not encrypt according to the method in Section 9.1, because the packets may flow through a translator that does. Techniques for choosing unpredictable numbers are discussed in [17].</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sequenceNumber</span><span class="p">:</span> <span class="kt"><a href="../Structs/SerialNumber.html">SerialNumber</a></span><span class="o">&lt;</span><span class="kt">UInt16</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV9timestamps6UInt32Vvp"></a>
+                    <a name="//apple_ref/swift/Property/timestamp" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV9timestamps6UInt32Vvp">timestamp</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The timestamp reflects the sampling instant of the first octet in the RTP data packet. The sampling instant must be derived from a clock that increments monotonically and linearly in time to allow synchronization and jitter calculations (see Section 6.4.1). The resolution of the clock must be sufficient for the desired synchronization accuracy and for measuring packet arrival jitter (one tick per video frame is typically not sufficient). The clock frequency is dependent on the format of data carried as payload and is specified statically in the profile or payload format specification that defines the format, or may be specified dynamically for payload formats defined through non-RTP means. If RTP packets are generated periodically, the nominal sampling instant as determined from the sampling clock is to be used, not a reading of the system clock. As an example, for fixed-rate audio the timestamp clock would likely increment by one for each sampling period. If an audio application reads blocks covering 160 sampling periods from the input device, the timestamp would be increased by 160 for each such block, regardless of whether the block is transmitted in a packet or dropped as silent.
+The initial value of the timestamp should be random, as for the sequence number. Several consecutive RTP packets will have equal timestamps if they are (logically) generated at once, e.g., belong to the same video frame. Consecutive RTP packets may contain timestamps that are not monotonic if the data is not transmitted in the order it was sampled, as in the case of MPEG interpolated video frames. (The sequence numbers of the packets as transmitted will still be monotonic.)
+RTP timestamps from different media streams may advance at different rates and usually have independent, random offsets. Therefore, although these timestamps are sufficient to reconstruct the timing of a single stream, directly comparing RTP timestamps from different media is not effective for synchronization. Instead, for each medium the RTP timestamp is related to the sampling instant by pairing it with a timestamp from a reference clock (wallclock) that represents the time when the data corresponding to the RTP timestamp was sampled. The reference clock is shared by all media to be synchronized. The timestamp pairs are not transmitted in every data packet, but at a lower rate in RTCP SR packets as described in Section 6.4.
+The sampling instant is chosen as the point of reference for the RTP timestamp because it is known to the transmitting endpoint and has a common definition for all media, independent of encoding delays or other processing. The purpose is to allow synchronized presentation of all media sampled at the same time.
+Applications transmitting stored data rather than data sampled in real time typically use a virtual presentation timeline derived from wallclock time to determine when the next frame or other unit of each medium in the stored data should be presented. In this case, the RTP timestamp would reflect the presentation time for each unit. That is, the RTP timestamp for each unit would be related to the wallclock time at which the unit becomes current on the virtual presentation timeline. Actual presentation occurs some time later as determined by the receiver.
+An example describing live audio narration of prerecorded video illustrates the significance of choosing the sampling instant as the reference point. In this scenario, the video would be presented locally for the narrator to view and would be simultaneously transmitted using RTP. The “sampling instant” of a video frame transmitted in RTP would be established by referencing its timestamp to the wallclock time when that video frame was presented to the narrator. The sampling instant for the audio RTP packets containing the narrator’s speech would be established by referencing the same wallclock time when the audio was sampled. The audio and video may even be transmitted by different hosts if the reference clocks on the two hosts are synchronized by some means such as NTP. A receiver can then synchronize presentation of the audio and video packets by relating their RTP timestamps using the timestamp pairs in RTCP SR packets.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">UInt32</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV21synchronisationSourceAA018RTPSynchronizationE0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/synchronisationSource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV21synchronisationSourceAA018RTPSynchronizationE0Vvp">synchronisationSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The SSRC field identifies the synchronization source. This identifier should be chosen randomly, with the intent that no two synchronization sources within the same RTP session will have the same SSRC identifier. An example algorithm for generating a random identifier is presented in Appendix A.6. Although the probability of multiple sources choosing the same identifier is low, all RTP implementations must be prepared to detect and resolve collisions. Section 8 describes the probability of collision along with a mechanism for resolving collisions and detecting RTP-level forwarding loops based on the uniqueness of the SSRC identifier. If a source changes its source transport address, it must also choose a new SSRC identifier to avoid being interpreted as a looped source (see Section 8.2).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">synchronisationSource</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPSynchronizationSource.html">RTPSynchronizationSource</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV19contributingSourcesSayAA21RTPContributingSourceVGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/contributingSources" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV19contributingSourcesSayAA21RTPContributingSourceVGSgvp">contributingSources</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The CSRC list identifies the contributing sources for the payload contained in this packet. The number of identifiers is given by the CC field. If there are more than 15 contributing sources, only 15 can be identified. CSRC identifiers are inserted by mixers (see Section 7.1), using the SSRC identifiers of contributing sources. For example, for audio packets the SSRC identifiers of all sources that were mixed together to create a packet are listed, allowing correct talker indication at the receiver.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    0 to 15 items
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contributingSources</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/RTPContributingSource.html">RTPContributingSource</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV7version7padding9extension6marker11payloadType14sequenceNumber9timestamp21synchronisationSource19contributingSourcesAcA10RTPVersionV_S3bAA010RTPPayloadI0Vs6UInt16Vs6UInt32VAA018RTPSynchronizationN0VSayAA015RTPContributingN0VGSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(version:padding:extension:marker:payloadType:sequenceNumber:timestamp:synchronisationSource:contributingSources:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV7version7padding9extension6marker11payloadType14sequenceNumber9timestamp21synchronisationSource19contributingSourcesAcA10RTPVersionV_S3bAA010RTPPayloadI0Vs6UInt16Vs6UInt32VAA018RTPSynchronizationN0VSayAA015RTPContributingN0VGSgtcfc">init(version:<wbr>padding:<wbr>extension:<wbr>marker:<wbr>payloadType:<wbr>sequenceNumber:<wbr>timestamp:<wbr>synchronisationSource:<wbr>contributingSources:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">version</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPVersion.html">RTPVersion</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">v2</span><span class="p">,</span>
+    <span class="nv">padding</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nv">extension</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nv">marker</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">payloadType</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPPayloadType.html">RTPPayloadType</a></span><span class="p">,</span>
+    <span class="nv">sequenceNumber</span><span class="p">:</span> <span class="kt">UInt16</span><span class="p">,</span>
+    <span class="nv">timestamp</span><span class="p">:</span> <span class="kt">UInt32</span><span class="p">,</span>
+    <span class="nv">synchronisationSource</span><span class="p">:</span> <span class="kt"><a href="../Structs/RTPSynchronizationSource.html">RTPSynchronizationSource</a></span><span class="p">,</span>
+    <span class="nv">contributingSources</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/RTPContributingSource.html">RTPContributingSource</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV4fromAC9BinaryKit0E6ReaderVyxGz_tKc10Foundation12DataProtocolRzSi5IndexRtzlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV4fromAC9BinaryKit0E6ReaderVyxGz_tKc10Foundation12DataProtocolRzSi5IndexRtzlufc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">D</span><span class="o">&gt;</span><span class="p">(</span><span class="n">from</span> <span class="nv">reader</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">BinaryReader</span><span class="o">&lt;</span><span class="kt">D</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="k">where</span> <span class="kt">D</span> <span class="p">:</span> <span class="kt">DataProtocol</span><span class="p">,</span> <span class="kt">D</span><span class="o">.</span><span class="kt">Index</span> <span class="o">==</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV5write2toy9BinaryKit0F6WriterVyxGz_tK10Foundation19MutableDataProtocolRzSi5IndexRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/write(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV5write2toy9BinaryKit0F6WriterVyxGz_tK10Foundation19MutableDataProtocolRzSi5IndexRtzlF">write(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">write</span><span class="o">&lt;</span><span class="kt">D</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to</span> <span class="nv">writer</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">BinaryWriter</span><span class="o">&lt;</span><span class="kt">D</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="k">where</span> <span class="kt">D</span> <span class="p">:</span> <span class="kt">MutableDataProtocol</span><span class="p">,</span> <span class="kt">D</span><span class="o">.</span><span class="kt">Index</span> <span class="o">==</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV13asNetworkData4typexxm_tK10Foundation07MutableF8ProtocolRzSi5IndexRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/asNetworkData(type:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV13asNetworkData4typexxm_tK10Foundation07MutableF8ProtocolRzSi5IndexRtzlF">asNetworkData(type:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">asNetworkData</span><span class="o">&lt;</span><span class="kt">D</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">D</span><span class="o">.</span><span class="k">Type</span> <span class="o">=</span> <span class="kt">D</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">D</span> <span class="k">where</span> <span class="kt">D</span> <span class="p">:</span> <span class="kt">MutableDataProtocol</span><span class="p">,</span> <span class="kt">D</span><span class="o">.</span><span class="kt">Index</span> <span class="o">==</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV4size23contributingSourceCountS2i_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/size(contributingSourceCount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV4size23contributingSourceCountS2i_tFZ">size(contributingSourceCount:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">size</span><span class="p">(</span><span class="nv">contributingSourceCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8SwiftRTP9RTPHeaderV4sizeSivp"></a>
+                    <a name="//apple_ref/swift/Property/size" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8SwiftRTP9RTPHeaderV4sizeSivp">size</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>size in bytes if written to the network</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="http://nadoba.de" target="_blank" rel="noopener" rel="external">David Nadoba</a>. All rights reserved. (Last updated: 2021-08-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
